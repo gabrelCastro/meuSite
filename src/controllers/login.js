@@ -25,7 +25,7 @@ class Auth{
         // Gera o token JWT
 
         const token = await jwt.sign({ id: user.user }, process.env.TOKEN, { expiresIn: '365d' });
-        await res.cookie('authorization', token, { maxAge: 900000, httpOnly: true }); 
+        await res.cookie('authorization', token, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true });
         return res.redirect('/admin');
 
         

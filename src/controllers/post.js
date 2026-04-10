@@ -2,18 +2,27 @@ const path = require("path");
 const Post = require(path.resolve("src","database","Models","Post"));
 const dotenv = require('dotenv');
 const cloudinary = require(path.resolve("config", "cloudinary"));
+const sanitizeHtml = require('sanitize-html');
 dotenv.config();
+
+const sanitizeOpts = {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'span']),
+    allowedAttributes: { '*': ['style', 'class'], 'a': ['href', 'target'], 'img': ['src', 'alt'] },
+};
 
 class PostController{
     
     static async postStore(req, res) {
         try {
+          if (!req.body.titulo || !req.body.conteudo || !req.file) {
+            return res.status(400).json({ message: 'Campos obrigatórios não preenchidos' });
+          }
           const imagem = await cloudinary.uploader.upload(req.file.path, {
             folder: "uploads",
           });
           const newPost = await Post.create({
-            titulo: req.body.titulo,
-            conteudo: req.body.conteudo,
+            titulo: req.body.titulo.trim(),
+            conteudo: sanitizeHtml(req.body.conteudo, sanitizeOpts),
             img: {
               url: imagem.url,
               public_id: imagem.public_id,
@@ -134,18 +143,18 @@ class PostController{
           }
     
           if (req.body.titulo) {
-            titulo = req.body.titulo;
+            titulo = req.body.titulo.trim();
           }
           if (req.body.conteudo) {
-            conteudo = req.body.conteudo;
+            conteudo = sanitizeHtml(req.body.conteudo, sanitizeOpts);
           }
-    
+
           const object = {
             titulo: titulo,
             conteudo: conteudo,
             img: imagem2,
           };
-          editPost.update(object);
+          await editPost.update(object);
           res.status(201).json({ message: "editado com sucesso!", Post: editPost });
         } catch (erro) {
           res

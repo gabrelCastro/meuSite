@@ -18,7 +18,7 @@
             <p><%=posts[i].titulo%></p>
             <div class = "icones">
                 <a href="/postEditar/<%=posts[i].id%>" class="sair"><img src="/img/wired-outline-35-edit-hover-circle.png" class="icone_sair"></a>
-                <a  href="#" data-id="<%=posts[i].id%>" class="sair" onclick="deleteVideo(this,event)"><img src="/img/wired-outline-185-trash-bin-hover-empty.png" class="icone_sair" ></a>
+                <a  href="#" data-id="<%=posts[i].id%>" class="sair" onclick="deletePost(this,event)"><img src="/img/wired-outline-185-trash-bin-hover-empty.png" class="icone_sair" ></a>
             </div>
         </div>
         <% } %>
