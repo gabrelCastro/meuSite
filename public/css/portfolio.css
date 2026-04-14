@@ -1,0 +1,198 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0F1117;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+*, *:before, *:after { box-sizing: border-box; }
+
+footer { margin-top: auto; }
+
+/* ── Header ──────────────────────────────────────── */
+
+.cabecalho {
+    background-color: #1A202C;
+    border-bottom: 1px solid #2D3748;
+    padding: 32px 24px;
+    margin-bottom: 48px;
+}
+
+h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: #818CF8;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.linksNav {
+    transition: color 0.2s ease;
+    color: #94A3B8;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.linksNav:hover { color: #818CF8; }
+
+/* ── Projetos lista ──────────────────────────────── */
+
+.projetos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+    width: 100%;
+}
+
+/* ── Card horizontal ─────────────────────────────── */
+
+.projeto-card {
+    display: flex;
+    background-color: #1A202C;
+    border: 1px solid #2D3748;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.projeto-card:hover {
+    border-color: #818CF8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(129, 140, 248, 0.12);
+}
+
+/* Banner lateral com gradiente rotativo */
+.projeto-banner {
+    width: 96px;
+    min-width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.grad-0 { background: linear-gradient(160deg, #312e81, #4c1d95); }
+.grad-1 { background: linear-gradient(160deg, #1e3a5f, #1e40af); }
+.grad-2 { background: linear-gradient(160deg, #064e3b, #065f46); }
+.grad-3 { background: linear-gradient(160deg, #7c2d12, #92400e); }
+
+/* Informações do projeto */
+.projeto-info {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.projeto-titulo {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin: 0;
+}
+
+.projeto-descricao {
+    font-size: 0.875rem;
+    color: #94A3B8;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* Tech badges */
+.projeto-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.tech-badge {
+    background-color: #0F1117;
+    border: 1px solid #2D3748;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #818CF8;
+}
+
+/* Botões de links */
+.projeto-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.projeto-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #818CF8;
+    border: 1px solid #818CF8;
+    border-radius: 6px;
+    padding: 4px 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.projeto-link:hover {
+    background-color: #818CF8;
+    color: #0F1117;
+}
+
+/* Estado vazio */
+.empty-state {
+    text-align: center;
+    color: #4A5568;
+    padding: 64px 0;
+    font-size: 0.95rem;
+}
+
+/* ── Footer ──────────────────────────────────────── */
+
+footer {
+    height: 80px;
+    background-color: #1A202C;
+    border-top: 1px solid #2D3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copyright {
+    color: #64748B;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+
+@media (max-width: 600px) {
+    .projeto-card { flex-direction: column; }
+
+    .projeto-banner {
+        width: 100%;
+        min-width: unset;
+        height: 80px;
+    }
+
+    nav { gap: 20px; }
+}

@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário com Quill</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/criarVideo.css">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <title>Novo Vídeo — Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/form_admin.css">
 </head>
 <body>
-    <div class="criacao">
-        <h1>Adicionar Video</h1>
+    <header class="admin-header">
+        <a href="/videoAdmin" class="btn-voltar">← Vídeos</a>
+        <h1>Novo Vídeo</h1>
+        <span></span>
+    </header>
 
+    <div class="form-container">
         <form method="post" action="/video" class="formulario" enctype="multipart/form-data">
-            <div>
-                <label for="titulo" class="titulo">Título</label>
-                <input type="text" id="titulo" name="titulo" class="inputTitulo" required>
+            <div class="campo">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" class="input" required placeholder="Título do vídeo">
             </div>
 
-            <div>
-
-                <label for="imagem" class="titulo">Imagem</label>
-                <input name="imagem" type="file" accept="image/*" id="imageInput"> 
-
-                <label for="conteudo" class="conteudo">Conteúdo</label>   
-
-                <input type="textarea" name="conteudo" id="conteudo" class="inputTitulo">
+            <div class="campo">
+                <label for="imageInput">Imagem de capa</label>
+                <input name="imagem" type="file" accept="image/*" id="imageInput" class="input-file">
             </div>
 
-            <button type="submit" class="botao">Adicionar Video</button>
+            <div class="campo">
+                <label for="conteudo">Link do vídeo</label>
+                <input type="url" name="conteudo" id="conteudo" class="input" required
+                    placeholder="https://www.youtube.com/watch?v=... ou https://vimeo.com/...">
+                <span class="hint">Suporta YouTube e Vimeo</span>
+            </div>
+
+            <button type="submit" class="btn-submit">Publicar Vídeo</button>
         </form>
     </div>
-
-
 </body>
 </html>

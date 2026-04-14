@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página com Botões</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <div class="container">
-        <div class = "botoes">
-            <h1>ADMIN</h1>
-            <a href="/postAdmin" class="botao">POSTS</a>
-            <a href="/videoAdmin" class="botao">VIDEOS</a>
+        <h1>ADMIN</h1>
+
+        <div class="botoes">
+            <a href="/postAdmin" class="botao">Posts</a>
+            <a href="/videoAdmin" class="botao">Vídeos</a>
+            <a href="/portfolioAdmin" class="botao">Portfólio</a>
         </div>
-        <a href="/home" class="sair"><img src="/img/image 1.png" class="icone_sair">IR PARA HOME</a>
-        <form action="/logout" method="POST" style="margin-top: 1rem;">
-            <button type="submit" class="botao">LOGOUT</button>
-        </form>
+
+        <div class="rodape">
+            <a href="/home" class="link-rodape">← Ir para Home</a>
+            <form action="/logout" method="POST">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
+        </div>
     </div>
-    
 </body>
 </html>

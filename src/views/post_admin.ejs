@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/video_admin.css">
-    <title>POSTS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/list_admin.css">
+    <title>Posts — Admin</title>
 </head>
 <body>
-    <h1>POSTS</h1>
-    
-    <div class = "videos">
+    <header class="admin-header">
+        <a href="/admin" class="btn-voltar">← Admin</a>
+        <h1>Posts</h1>
+        <a href="/criarPost" class="btn-novo">+ Novo Post</a>
+    </header>
 
-        <a href="/criarPost" class="sair"><img src="/img/wired-outline-49-plus-circle-hover-rotation.png" class="icone_sair"></a>
+    <div class="lista">
+        <% if (posts.length === 0) { %>
+            <p class="vazio">Nenhum post cadastrado ainda.</p>
+        <% } %>
         <% for (let i = 0; i < posts.length; i++) { %>
-        <div class = "video">
-            <p><%=posts[i].titulo%></p>
-            <div class = "icones">
-                <a href="/postEditar/<%=posts[i].id%>" class="sair"><img src="/img/wired-outline-35-edit-hover-circle.png" class="icone_sair"></a>
-                <a  href="#" data-id="<%=posts[i].id%>" class="sair" onclick="deletePost(this,event)"><img src="/img/wired-outline-185-trash-bin-hover-empty.png" class="icone_sair" ></a>
+        <div class="item">
+            <span class="item-titulo"><%=posts[i].titulo%></span>
+            <div class="item-acoes">
+                <a href="/postEditar/<%=posts[i].id%>" class="btn-editar">Editar</a>
+                <a href="#" data-id="<%=posts[i].id%>" class="btn-deletar" onclick="deletePost(this,event)">Deletar</a>
             </div>
         </div>
         <% } %>
-
     </div>
 
     <script src="/js/postAdmin.js"></script>
-    
 </body>
 </html>

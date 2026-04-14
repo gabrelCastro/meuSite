@@ -1,3 +1,6 @@
 .env
 node_modules
 sequelize.sqlite
+.claude
+public/uploads/*
+!public/uploads/.gitkeep

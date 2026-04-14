@@ -1,0 +1,132 @@
+*, *:before, *:after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0F1117;
+    color: #E2E8F0;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #1A202C;
+    border-bottom: 1px solid #2D3748;
+}
+
+.admin-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin: 0;
+}
+
+.btn-voltar {
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.btn-voltar:hover { color: #818CF8; }
+
+.form-container {
+    max-width: 860px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #94A3B8;
+}
+
+.hint {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #64748B;
+}
+
+.input {
+    background-color: #1A202C;
+    border: 1px solid #2D3748;
+    border-radius: 8px;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    transition: border-color 0.2s;
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #818CF8;
+}
+
+.input::placeholder { color: #4A5568; }
+
+.textarea {
+    background-color: #1A202C;
+    border: 1px solid #2D3748;
+    border-radius: 8px;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 160px;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #818CF8;
+}
+
+.input-file {
+    color: #94A3B8;
+    font-size: 0.875rem;
+}
+
+/* ── TinyMCE container ──────────────────────────── */
+
+.tox-tinymce {
+    border: 1px solid #2D3748 !important;
+    border-radius: 8px !important;
+}
+
+/* ── Botão submit ───────────────────────────────── */
+
+.btn-submit {
+    align-self: flex-start;
+    background-color: #818CF8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover { background-color: #6366F1; }

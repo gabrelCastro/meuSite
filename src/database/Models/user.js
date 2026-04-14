@@ -1,14 +1,12 @@
 const Sequelize = require('sequelize');
 const database = require('../../../config/db');
 const bcrypt = require('bcryptjs');
-const dotenv = require('dotenv');
-dotenv.config();
-
 const User = database.define('users', {
 
     id:{
         type: Sequelize.UUID,
-        primaryKey : true
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4,
     },
     user:{
         type: Sequelize.STRING,
@@ -26,7 +24,7 @@ const User = database.define('users', {
                 const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
                 await User.create({
                 user: process.env.ADMIN_USER,
-                password: hashedPassword // Certifique-se de armazenar senhas de forma segura (hashing)
+                password: hashedPassword
                 });}
                 catch (error) {
                 console.error('Erro ao criar usuário:', error);
