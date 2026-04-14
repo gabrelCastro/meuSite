@@ -10,3 +10,47 @@ function escreverTexto() {
   }
 }
 escreverTexto();
+
+// ── Scroll Reveal ──────────────────────────────────
+const revealElements = document.querySelectorAll('.reveal');
+
+if (revealElements.length > 0) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealElements.forEach((el) => observer.observe(el));
+}
+
+// ── 3D Tilt on Cards ──────────────────────────────
+const tiltCards = document.querySelectorAll('.conheca-card');
+
+tiltCards.forEach((card) => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Max 8 degrees tilt
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    card.style.setProperty('--rx', rotateX + 'deg');
+    card.style.setProperty('--ry', rotateY + 'deg');
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+  });
+});

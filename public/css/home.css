@@ -25,8 +25,27 @@ footer { margin-top: auto; }
 .cabecalho {
     background-color: #0F1117;
     border-bottom: 1px solid #2D3748;
-    padding: 40px 24px 56px;
+    padding: 48px 24px 80px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Particle Canvas ────────────────────────────── */
+
+#particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: auto;
+}
+
+.cabecalho > *:not(#particles) {
+    position: relative;
+    z-index: 1;
 }
 
 .meu_Nome {
@@ -55,7 +74,7 @@ nav {
 .linksNav:hover { color: #818CF8; }
 
 .gl {
-    margin-top: 40px;
+    margin-top: 32px;
     display: flex;
     gap: 48px;
     justify-content: center;
@@ -87,7 +106,7 @@ nav {
 }
 
 .fraseIconica {
-    margin-top: 36px;
+    margin-top: 28px;
     color: #94A3B8;
     font-size: clamp(0.9rem, 2vw, 1.1rem);
     font-weight: 400;
@@ -99,11 +118,11 @@ nav {
 
 .sobreMim {
     max-width: 860px;
-    margin: 64px auto 0;
+    margin: 56px auto 0;
     background-color: #1A202C;
     border-radius: 10px;
     border: 1px solid #2D3748;
-    padding: 28px 32px 32px;
+    padding: 32px 36px 36px;
 }
 
 .titutoAbout {
@@ -156,18 +175,18 @@ nav {
 
 .conheca {
     max-width: 860px;
-    margin: 48px auto 80px;
+    margin: 56px auto 56px;
     background-color: #1A202C;
     border-radius: 10px;
     border: 1px solid #2D3748;
-    padding: 28px 32px 32px;
+    padding: 32px 36px 36px;
 }
 
 .conheca-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .conheca-card {
@@ -177,13 +196,11 @@ nav {
     border: 1px solid #2D3748;
     border-radius: 10px;
     overflow: hidden;
-    transition: border-color 0.2s ease, transform 0.2s ease;
     text-decoration: none;
 }
 
 .conheca-card:hover {
     border-color: #818CF8;
-    transform: translateY(-3px);
 }
 
 .conheca-banner {
@@ -280,4 +297,36 @@ footer {
 
     .conheca-grid { grid-template-columns: 1fr; }
     .conheca-banner { height: 130px; }
+}
+
+/* ── Scroll Reveal ──────────────────────────────── */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── 3D Tilt Cards ──────────────────────────────── */
+
+.conheca-card {
+    --rx: 0deg;
+    --ry: 0deg;
+    transform: perspective(600px) rotateX(var(--rx)) rotateY(var(--ry));
+    transition: border-color 0.2s ease,
+                transform 0.35s cubic-bezier(0.03, 0.98, 0.52, 0.99),
+                box-shadow 0.35s ease;
+    will-change: transform;
+}
+
+.conheca-card:hover {
+    border-color: #818CF8;
+    box-shadow: 0 12px 40px rgba(129, 140, 248, 0.15),
+                0 0 30px rgba(129, 140, 248, 0.06);
 }
