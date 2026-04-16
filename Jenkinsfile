@@ -26,6 +26,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'meusite-env', variable: 'ENV_FILE')]) {
                     sh """
                         cp \$ENV_FILE ${DEPLOY_DIR}/.env
+                        git config --global --add safe.directory ${DEPLOY_DIR}
                         cd ${DEPLOY_DIR}
                         git pull origin main
                         docker compose up -d --build
