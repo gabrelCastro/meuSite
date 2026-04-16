@@ -3,24 +3,22 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: blue;
-    background-image: url("/img/blue-1761175_1920.jpg"); 
-    
-  }
+    background-color: #0F1117;
+}
 
-  *{
-    font-family: jetbrains mono;
-  }
-
+*{
+    font-family: 'Inter', sans-serif;
+}
 
 .formulario{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #1A202C;
     width: 40%;
+    min-width: 300px;
     height: 300px;
-    border: 7px solid rgb(209, 3, 209);
+    border: 1px solid #818CF8;
     border-radius: 10px;
 }
 
@@ -35,20 +33,37 @@ input{
     height: 50px;
     margin-left: auto;
     margin-right: auto;
-    border: 3px solid blue;
+    border: 1px solid #2D3748;
     border-radius: 10px;
+    background-color: #0F1117;
+    color: #E2E8F0;
+    padding: 0 12px;
+}
+
+input:focus{
+    outline: none;
+    border-color: #818CF8;
 }
 
 button{
     width: 30%;
     margin-left: auto;
     margin-right: auto;
-    height: 30px;
+    height: 36px;
     border-radius: 5px;
-    background-color: rgb(255, 0, 255);
-    color: aliceblue;
+    background-color: #818CF8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+button:hover{
+    background-color: #6366F1;
 }
 
 label{
     font-size: 120%;
+    color: #E2E8F0;
 }

@@ -1,25 +1,23 @@
 document.getElementById('updateVideoForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault();
 
-    const formData = new FormData(this); // Captura os dados do formulário
+    tinymce.triggerSave();
 
-    fetch(`${this.action}`, {
+    const formData = new FormData(this);
+
+    fetch(this.action, {
         method: 'PUT',
-        body: formData // Envia os dados do formulário
+        body: formData
     })
     .then(response => {
         if (response.ok) {
             window.location.href = '/postAdmin';
-            return response.json(); // Converte a resposta para JSON
+        } else {
+            throw new Error('Erro ao atualizar post.');
         }
-        throw new Error('Erro ao atualizar post.');
-    })
-    .then(data => {
-        alert(data.message); // Mensagem de sucesso
-        // Redireciona ou faz outras ações conforme necessário
     })
     .catch(error => {
         console.error('Erro:', error);
-        alert('Erro ao atualizar post.');
+        alert('Erro ao atualizar post. Tente novamente.');
     });
 });

@@ -1,52 +1,46 @@
 body{
-    background-image: url("/img/v617batch2-bb-01-technology.png");
-    background-size: cover;
+    background-color: #0F1117;
     display: flex;
     justify-content: center;
 }
 
 *{
-    font-family: jetbrains mono;
+    font-family: 'Inter', sans-serif;
 }
 
 h1{
     text-align: center;
-    color: rgb(12, 0, 119);
+    color: #818CF8;
 }
 
-.ql-container {
-    background-color: #010050; /* Cor de fundo desejada */
-  
+.ql-toolbar{
+    background-color: #2D3748;
+    border-color: #2D3748 !important;
+}
+
+.ql-container{
+    background-color: #1A202C;
+    border-color: #2D3748 !important;
 }
 
 .ql-editor {
-    color: #ffffff; /* Cor da fonte desejada */
-  }
+    color: #E2E8F0;
+}
 
 .criacao{
     display: flex;
     flex-direction: column;
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #1A202C;
     width: 90%;
-    border:5px solid rgb(0, 4, 255);
+    border: 1px solid #818CF8;
     border-radius: 10px;
     height: 90%;
-
-}
-
-.botao{
-    margin-top: 20px;
-    width: 10%;
-    height: 40px;
-    background-color: blue;
-    color: white;
-    border-radius: 5px;
-    border: 3px solid black;
 }
 
 .labelConteudo{
     margin-bottom: 30px;
+    color: #E2E8F0;
 }
 
 .titulo{
@@ -54,36 +48,56 @@ h1{
     margin-bottom: 10px;
     justify-content: center;
     font-size: 150%;
-
+    color: #E2E8F0;
 }
 
 .formulario{
     display: flex;
     flex-direction: column;
-    gap: 50px
-    
+    gap: 50px;
 }
 
 .botao{
     margin-top: 100px;
     align-self: center;
-   
+    width: 10%;
+    height: 40px;
+    background-color: #818CF8;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.botao:hover{
+    background-color: #6366F1;
 }
 
 .conteudo{
     display: block;
     font-size: 150%;
-
+    color: #E2E8F0;
 }
 
 .inputTitulo{
     width: 70%;
     height: 50px;
-    border:3px solid #010050;
+    border: 1px solid #2D3748;
     border-radius: 8px;
+    background-color: #0F1117;
+    color: #E2E8F0;
+    padding: 0 12px;
+}
+
+.inputTitulo:focus{
+    outline: none;
+    border-color: #818CF8;
 }
 
 #imageInput{
     margin-top: 20px;
     margin-bottom: 40px;
+    color: #94A3B8;
 }

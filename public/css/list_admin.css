@@ -1,0 +1,122 @@
+*, *:before, *:after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0F1117;
+    color: #E2E8F0;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #1A202C;
+    border-bottom: 1px solid #2D3748;
+}
+
+.admin-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin: 0;
+}
+
+.btn-voltar {
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.btn-voltar:hover { color: #818CF8; }
+
+.btn-novo {
+    background-color: #818CF8;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-novo:hover { background-color: #6366F1; }
+
+.lista {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vazio {
+    color: #94A3B8;
+    text-align: center;
+    padding: 60px 0;
+    font-size: 0.95rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1A202C;
+    border: 1px solid #2D3748;
+    border-radius: 10px;
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+}
+
+.item:hover { border-color: #818CF8; }
+
+.item-titulo {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #E2E8F0;
+    flex: 1;
+    margin-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item-acoes {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-editar, .btn-deletar {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.btn-editar {
+    background-color: #2D3748;
+    color: #E2E8F0;
+    border: 1px solid #4A5568;
+}
+
+.btn-editar:hover { background-color: #4A5568; }
+
+.btn-deletar {
+    background-color: transparent;
+    color: #F87171;
+    border: 1px solid #F87171;
+}
+
+.btn-deletar:hover {
+    background-color: #F87171;
+    color: white;
+}

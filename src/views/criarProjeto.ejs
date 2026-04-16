@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/form_admin.css">
+    <title>Novo Projeto — Admin</title>
+</head>
+<body>
+    <header class="admin-header">
+        <a href="/portfolioAdmin" class="btn-voltar">← Portfólio</a>
+        <h1>Novo Projeto</h1>
+        <span></span>
+    </header>
+
+    <div class="form-container">
+        <form id="projetoForm" class="formulario">
+            <div class="campo">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" class="input" required placeholder="Nome do projeto">
+            </div>
+
+            <div class="campo">
+                <label for="descricao">Descrição</label>
+                <textarea name="descricao" id="descricao" class="textarea" required placeholder="Descreva o projeto em 1-3 frases..."></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="tecnologias">Tecnologias</label>
+                <input type="text" id="tecnologias" name="tecnologias" class="input" placeholder="Node.js, PostgreSQL, Express">
+                <span class="hint">Separe com vírgula</span>
+            </div>
+
+            <div class="campo">
+                <label for="githubUrl">Link GitHub <span class="hint">(opcional)</span></label>
+                <input type="url" id="githubUrl" name="githubUrl" class="input" placeholder="https://github.com/...">
+            </div>
+
+            <div class="campo">
+                <label for="demoUrl">Link Demo <span class="hint">(opcional)</span></label>
+                <input type="url" id="demoUrl" name="demoUrl" class="input" placeholder="https://...">
+            </div>
+
+            <button type="submit" class="btn-submit">Publicar Projeto</button>
+        </form>
+    </div>
+
+    <script src="/js/criarProjeto_projeto.js"></script>
+</body>
+</html>

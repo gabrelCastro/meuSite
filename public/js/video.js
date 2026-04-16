@@ -7,6 +7,6 @@ videos.forEach(video => {
 
 
     // Redirecionar para o link correspondente usando o índice
-    window.location.href = `/video/${videoId} `; 
+    window.location.href = `/video/${videoId}`;
   });
 });

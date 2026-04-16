@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/list_admin.css">
+    <title>Portfólio — Admin</title>
+</head>
+<body>
+    <header class="admin-header">
+        <a href="/admin" class="btn-voltar">← Admin</a>
+        <h1>Portfólio</h1>
+        <a href="/criarProjeto" class="btn-novo">+ Novo Projeto</a>
+    </header>
+
+    <div class="lista">
+        <% if (projetos.length === 0) { %>
+            <p class="vazio">Nenhum projeto cadastrado ainda.</p>
+        <% } %>
+        <% for (let i = 0; i < projetos.length; i++) { %>
+        <div class="item">
+            <span class="item-titulo"><%= projetos[i].titulo %></span>
+            <div class="item-acoes">
+                <a href="/projetoEditar/<%= projetos[i].id %>" class="btn-editar">Editar</a>
+                <a href="#" data-id="<%= projetos[i].id %>" class="btn-deletar" onclick="deletarProjeto(this, event)">Deletar</a>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <script src="/js/projetoAdmin.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/form_admin.css">
+    <title>Editar Projeto — Admin</title>
+</head>
+<body>
+    <header class="admin-header">
+        <a href="/portfolioAdmin" class="btn-voltar">← Portfólio</a>
+        <h1>Editar Projeto</h1>
+        <span></span>
+    </header>
+
+    <div class="form-container">
+        <form id="projetoForm" class="formulario" data-id="<%= projeto.id %>">
+            <div class="campo">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" class="input" required value="<%= projeto.titulo %>">
+            </div>
+
+            <div class="campo">
+                <label for="descricao">Descrição</label>
+                <textarea name="descricao" id="descricao" class="textarea" required><%= projeto.descricao %></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="tecnologias">Tecnologias</label>
+                <input type="text" id="tecnologias" name="tecnologias" class="input" value="<%= projeto.tecnologias.join(', ') %>">
+                <span class="hint">Separe com vírgula</span>
+            </div>
+
+            <div class="campo">
+                <label for="githubUrl">Link GitHub <span class="hint">(opcional)</span></label>
+                <input type="url" id="githubUrl" name="githubUrl" class="input" value="<%= projeto.githubUrl || '' %>">
+            </div>
+
+            <div class="campo">
+                <label for="demoUrl">Link Demo <span class="hint">(opcional)</span></label>
+                <input type="url" id="demoUrl" name="demoUrl" class="input" value="<%= projeto.demoUrl || '' %>">
+            </div>
+
+            <button type="submit" class="btn-submit">Salvar alterações</button>
+        </form>
+    </div>
+
+    <script src="/js/editarProjeto_projeto.js"></script>
+</body>
+</html>
