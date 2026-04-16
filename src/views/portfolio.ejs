@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/portfolio.css">
+    <title>portfólio</title>
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>portfólio</h1>
+        <nav>
+            <a href="/home" class="linksNav">home</a>
+            <a href="/blog" class="linksNav">meu_blog</a>
+            <a href="/explicando" class="linksNav">explicando</a>
+            <a href="/portfolio" class="linksNav">portfólio</a>
+        </nav>
+    </header>
+
+    <div class="projetos-lista">
+        <% if (projetos.length === 0) { %>
+            <p class="empty-state">Nenhum projeto cadastrado ainda.</p>
+        <% } %>
+
+        <% projetos.forEach(function(projeto, i) { %>
+            <div class="projeto-card">
+                <div class="projeto-banner grad-<%= i % 4 %>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                </div>
+                <div class="projeto-info">
+                    <h2 class="projeto-titulo"><%= projeto.titulo %></h2>
+                    <p class="projeto-descricao"><%= projeto.descricao %></p>
+
+                    <% if (projeto.tecnologias && projeto.tecnologias.length > 0) { %>
+                        <div class="projeto-techs">
+                            <% projeto.tecnologias.forEach(function(tech) { %>
+                                <span class="tech-badge"><%= tech %></span>
+                            <% }) %>
+                        </div>
+                    <% } %>
+
+                    <div class="projeto-links">
+                        <% if (projeto.githubUrl) { %>
+                            <a href="<%= projeto.githubUrl %>" target="_blank" rel="noopener" class="projeto-link">
+                                GitHub ↗
+                            </a>
+                        <% } %>
+                        <% if (projeto.demoUrl) { %>
+                            <a href="<%= projeto.demoUrl %>" target="_blank" rel="noopener" class="projeto-link">
+                                Demo ↗
+                            </a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <footer>
+        <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
+    </footer>
+</body>
+</html>

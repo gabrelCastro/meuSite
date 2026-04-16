@@ -1,160 +1,80 @@
-const path = require("path");
-const Post = require(path.resolve("src","database","Models","Post"));
-const dotenv = require('dotenv');
-const cloudinary = require(path.resolve("config", "cloudinary"));
-dotenv.config();
+const path = require('path');
+const PostService = require(path.resolve('src', 'services', 'postService'));
 
-class PostController{
-    
+class PostController {
     static async postStore(req, res) {
         try {
-          const imagem = await cloudinary.uploader.upload(req.file.path, {
-            folder: "uploads",
-          });
-          const newPost = await Post.create({
-            titulo: req.body.titulo,
-            conteudo: req.body.conteudo,
-            img: {
-              url: imagem.url,
-              public_id: imagem.public_id,
-            },
-          });
-          res.status(201).json({ message: "Criado com sucesso!", Post: newPost });
-        } catch (erro) {
-          res
-            .status(500)
-            .json({ message: `${erro.message} - Falha ao cadastrar Post` });
-        }
-      }
-
-      static async getPost(req, res) {
-        try {
-            Post.findAll().then((resultado) => {
-              let achados = [];
-              resultado.forEach((element) => {
-                achados.push({
-                  id: element.id,
-                  titulo: element.titulo,
-                  conteudo: element.conteudo,
-                  img: element.img.url,
-                  createdAt : element.createdAt,
-                  updatedAt : element.updatedAt
-      
-                });
-              });
-              res.render('meu_blog', {posts:achados}); 
+            if (!req.body.titulo || !req.body.conteudo || !req.file) {
+                return res.status(400).json({ message: 'Campos obrigatórios não preenchidos' });
+            }
+            const post = await PostService.create({
+                titulo: req.body.titulo,
+                conteudo: req.body.conteudo,
+                filename: req.file.filename,
             });
-          } catch (erro) {
-            res.status(500).json({ message: `${erro.message} - Falha ao ver Posts` });
-          }
-            
-
-
-      }
-
-      static async getPostPerID(req, res) {
-        try {
-          const id = await Number(req.params.id);
-          const findPost = await Post.findByPk(id);
-          res.render('post', {post:findPost});
-        } catch (erro) {
-          res
-            .status(500)
-            .json({ message: `${erro.message} - Falha ao mostrar Post` });
+            res.status(201).json({ message: 'Criado com sucesso!', post });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
-      }
+    }
 
-      static async deletePost(req, res) {
+    static async getPost(req, res) {
         try {
-          const id = await Number(req.params.id);
-          const postDelete = await Post.findByPk(id);
-          await cloudinary.uploader.destroy(postDelete.img.public_id, {
-            folder: "uploads",
-          });
-          postDelete.destroy().then((message) => {
-            res.status(200).json({ message: "Post deletado com sucesso." });
-          });
-        } catch (erro) {
-          res
-            .status(500)
-            .json({ message: `${erro.message} - Falha ao deletar Post` });
+            const posts = await PostService.getAll();
+            res.render('meu_blog', { posts });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
-      }
+    }
 
-      static async getPostPerIDadmin(req, res) {
+    static async getPostPerID(req, res) {
         try {
-          const id = await Number(req.params.id);
-          const findPost = await Post.findByPk(id);
-          res.render('editarPost', {post:findPost});
-        } catch (erro) {
-          res
-            .status(500)
-            .json({ message: `${erro.message} - Falha ao mostrar Post` });
+            const post = await PostService.getById(Number(req.params.id));
+            res.render('post', { post });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
-      }
+    }
 
-
-      static async getAdmin(req, res) {
+    static async getPostPerIDadmin(req, res) {
         try {
-            Post.findAll().then((resultado) => {
-              let achados = [];
-              resultado.forEach((element) => {
-                achados.push({
-                  id: element.id,
-                  titulo: element.titulo,
-                  conteudo: element.conteudo,
-                  img: element.img.url,
-                  createdAt : element.createdAt,
-                  updatedAt : element.updatedAt
-      
-                });
-              });
-              res.render('post_admin', {posts:achados}); 
+            const post = await PostService.getById(Number(req.params.id));
+            res.render('editarPost', { post });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    static async getAdmin(req, res) {
+        try {
+            const posts = await PostService.getAll();
+            res.render('post_admin', { posts });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    static async deletePost(req, res) {
+        try {
+            await PostService.delete(Number(req.params.id));
+            res.status(200).json({ message: 'Post deletado com sucesso.' });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    static async putPost(req, res) {
+        try {
+            const post = await PostService.update(req.params.id, {
+                titulo: req.body.titulo,
+                conteudo: req.body.conteudo,
+                filename: req.file ? req.file.filename : null,
             });
-          } catch (erro) {
-            res.status(500).json({ message: `${erro.message} - Falha ao ver Posts` });
-          }
-            
-      }
-
-      static async putPost(req, res) {
-        try {
-          const editPost = await Post.findByPk(req.params.id);
-          let imagem, imagem2, titulo, conteudo;
-          if (req.file) {
-            await cloudinary.uploader.destroy(editPost.img.public_id, {
-              folder: "uploads",
-            });
-            imagem = await cloudinary.uploader.upload(req.file.path, {
-              folder: "uploads",
-            });
-            imagem2 = await { url: imagem.url, public_id: imagem.public_id };
-          } else {
-            imagem2 = editPost.img;
-          }
-    
-          if (req.body.titulo) {
-            titulo = req.body.titulo;
-          }
-          if (req.body.conteudo) {
-            conteudo = req.body.conteudo;
-          }
-    
-          const object = {
-            titulo: titulo,
-            conteudo: conteudo,
-            img: imagem2,
-          };
-          editPost.update(object);
-          res.status(201).json({ message: "editado com sucesso!", Post: editPost });
-        } catch (erro) {
-          res
-            .status(500)
-            .json({ message: `${erro.message} - Falha ao editar Video` });
+            res.status(200).json({ message: 'Editado com sucesso!', post });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
-      
-      }
-  
+    }
 }
 
-module.exports = PostController
+module.exports = PostController;

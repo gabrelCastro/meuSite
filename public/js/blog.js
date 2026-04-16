@@ -7,6 +7,6 @@ posts.forEach(post => {
 
 
     // Redirecionar para o link correspondente usando o índice
-    window.location.href = `/post/${postId} `; 
+    window.location.href = `/post/${postId}`;
   });
 });

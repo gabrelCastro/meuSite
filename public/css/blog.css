@@ -1,191 +1,139 @@
-html,body{
-    margin: 0px;
-    padding: 0px;
-    background-color:  #1b1b1b;
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #0F1117;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
 }
+
+footer { margin-top: auto; }
 
 * {
     margin: 0;
     padding: 0;
-    font-family: jetbrains mono;
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
 }
 
+/* ── Header ──────────────────────────────────────── */
 
-.cabecalho{
-    background-color: black;
-    margin: 0px;
-    height: 250px;
-    margin-bottom: 100px;
-    border-bottom:5px solid rgb(255, 0, 255);
-}
-h2{
-  margin-left: 10px;
+.cabecalho {
+    background-color: #1A202C;
+    border-bottom: 1px solid #2D3748;
+    padding: 32px 24px;
+    margin-bottom: 48px;
 }
 
-h1{
-    padding: 50px;
-    padding-bottom: 60px;
-    font-size: 250%;
-    color: #00e4ff;
+h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: #818CF8;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-nav{
+nav {
     display: flex;
-    justify-content: space-around;
-    margin-left: 35%;
-    margin-right: 35%;
+    justify-content: center;
+    gap: 40px;
 }
 
-@media (max-width: 1300px) {
-    nav {
-      margin-left: 0px;
-      margin-right: 0px;
-    }
-  }
-
-.linksNav{
-    transition: color 0.3s ease; 
-    color: white;
-    font-size: 150%;
+.linksNav {
+    transition: color 0.2s ease;
+    color: #94A3B8;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
-.linksNav:hover {
-    color: rgb(247, 0, 255); /* Cor ao passar o mouse */
-  }
+.linksNav:hover { color: #818CF8; }
 
+/* ── Posts Grid ──────────────────────────────────── */
 
-form{
-    width: 100%;
-    text-align: center;
-}
-
-.alinhar{
-    margin-top: 100px;
+.posts {
     display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 0 40px 60px;
     justify-content: center;
 }
 
-.pesquisar{
-    border: 5px solid rgb(0, 204, 255);
-    height: 50px;
+.perPost {
+    flex: 1 1 320px;
+    max-width: 400px;
+}
+
+.post {
+    background-color: #1A202C;
+    border: 1px solid #2D3748;
     border-radius: 10px;
-    width: 50%;
-}
-
-
-
-footer{
-    height: 100px;
-    background-color: black;
-    padding: 30px;
-
-}
-
-
-
-  .copyright{
-    color: white;
-    font-weight: 700;
-    text-align: center;
-
-  }
-
-
-.posts{
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
     width: 100%;
-}
-
-.post{
-    background-color: white;
-    border: 5px solid rgb(0, 217, 255);
-    width: 30%;
-    height: 350px;
-    margin-left: 15px;
-    margin-right: 15px;
-    min-width: 400px;
-    margin-bottom: 30px;
+    height: 320px;
     overflow: hidden;
     position: relative;
-
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-
-
-.overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%; /* Ocupa metade da altura da div */
-    background-color: rgba(0, 0, 0, 0.842); /* Preto com 70% de opacidade */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; /* Esconde o overlay inicialmente */
-    transition: opacity 0.3s ease; /* Adiciona uma transição suave */
-  }
-  
-  .post:hover .overlay {
-
-    opacity: 1; /* Mostra o overlay ao passar o mouse */
-  }
-
-  .post-topic {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background-color: #e74c3c;
-  color: white;
-  font-size: 14px;
-  text-align: center;
+.post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-color: #818CF8;
 }
 
 .post img {
     width: 100%;
     height: 100%;
-    object-fit:fill;
-  }
-
-  .perPost{
-    min-width: 400px;
-    width: 30%;
-    margin: 0px;
-    padding: 0px;
-
-    
+    object-fit: cover;
     display: block;
-    
-  }
+}
 
+/* Título sempre visível no fundo do card */
+.post-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 16px 16px;
+    background: linear-gradient(to top, rgba(10, 12, 18, 0.95) 60%, transparent);
+}
 
-  @media (max-width: 768px) {
+.post-title h2 {
+    color: #E2E8F0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+}
 
-    .post{
-      min-width: 300px;
-      height: 280px;
-      margin-left: auto;
-      margin-right: auto;
-  
-    }
+/* ── Footer ──────────────────────────────────────── */
 
-    .perPost{
-      min-width: 300px;}
+footer {
+    height: 80px;
+    background-color: #1A202C;
+    border-top: 1px solid #2D3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-      
-  
-  
-  }
+.copyright {
+    color: #64748B;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .posts { padding: 0 16px 48px; gap: 16px; }
+
+    .post { height: 260px; }
+
+    .perPost { flex: 1 1 280px; max-width: 100%; }
+}

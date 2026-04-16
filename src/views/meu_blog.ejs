@@ -1,60 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/blog.css">
     <title>meu_blog</title>
 </head>
 <body>
-    
-    <div class="pagina">
     <header class="cabecalho">
         <h1>meu_blog</h1>
-
         <nav>
             <a href="/home" class="linksNav">home</a>
             <a href="/blog" class="linksNav">meu_blog</a>
             <a href="/explicando" class="linksNav">explicando</a>
+            <a href="/portfolio" class="linksNav">portfólio</a>
         </nav>
-
-        <div class ="alinhar">
-        <form>
-           <!-- <input type="search" name="q" placeholder="Pesquisar..." class="pesquisar"> -->
-        </form>
-        </div>
-
     </header>
 
     <div class="posts">
-
         <% for (let i = 0; i < posts.length; i++) { %>
-            <div class="post" id= "<%=posts[i].id%>" >
-              <img src="<%= posts[i].img %>" alt="Imagem do post"> 
-              <!-- <div class="post-topic">Ciência de Dados</div> -->
-              <div class="overlay">
-                <h2><%= posts[i].titulo %></h2> 
-              </div>
+            <div class="post" id="<%=posts[i].id%>">
+                <img src="<%= posts[i].img %>" alt="Imagem do post">
+                <div class="post-title">
+                    <h2><%= posts[i].titulo %></h2>
+                </div>
             </div>
-          <% } %>
-
-       
-        </div>
-    
-
-
-
+        <% } %>
     </div>
-    
-</div>
 
     <footer>
-        <p class="copyright">2024 | GABRIEL FERREIRA DE CASTRO</p>
+        <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
     </footer>
 
-
-    <script src="/js/blog.js"></script> 
-     
+    <script src="/js/blog.js"></script>
 </body>
 </html>

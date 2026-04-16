@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/post.css">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
-
-
     <title>meu_blog</title>
 </head>
 <body>
 
 <header class="cabecalho">
     <h1>meu_blog</h1>
-
     <nav>
         <a href="/home" class="linksNav">home</a>
         <a href="/blog" class="linksNav">meu_blog</a>
         <a href="/explicando" class="linksNav">explicando</a>
+        <a href="/portfolio" class="linksNav">portfólio</a>
     </nav>
-    
-
-    <h1 class="tituloPost"> <%= post.titulo %> </h1>
-
-    <div class="ql-editor">
-        <%- post.conteudo %>
-
-    </div>
-    
-
 </header>
 
+<div class="voltar-wrapper">
+    <a href="/blog" class="btn-voltar">← voltar ao blog</a>
+</div>
+
+<h1 class="tituloPost"><%= post.titulo %></h1>
+
+<div class="post-content">
+    <%- post.conteudo %>
+</div>
+
 <footer>
-    <p class="copyright">2024 | GABRIEL FERREIRA DE CASTRO</p>
+    <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
 </footer>
 
-
-<body>
+</body>
+</html>
