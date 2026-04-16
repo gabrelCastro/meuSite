@@ -28,7 +28,7 @@ pipeline {
                         cp \$ENV_FILE ${DEPLOY_DIR}/.env
                         rm -f ${DEPLOY_DIR}/docker-compose.yml
                         cp docker-compose.yml ${DEPLOY_DIR}/docker-compose.yml
-                        docker compose -f ${DEPLOY_DIR}/docker-compose.yml up -d
+                        docker compose -f ${DEPLOY_DIR}/docker-compose.yml up -d --force-recreate
                     """
                 }
             }
