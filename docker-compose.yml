@@ -1,6 +1,8 @@
 services:
   app:
     build: .
+    container_name: meuSite
+    restart: unless-stopped
     ports:
       - "${PORT:-3003}:3003"
     env_file:
@@ -10,26 +12,36 @@ services:
       NODE_ENV: production
     volumes:
       - uploads_data:/app/public/uploads
+    networks:
+      - rede-meuSite
     depends_on:
       postgres:
         condition: service_healthy
-    restart: unless-stopped
 
   postgres:
     image: postgres:16-alpine
+    container_name: meuSite-postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
       POSTGRES_DB: ${POSTGRES_DB:-meusite}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - rede-meuSite
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-meusite}"]
       interval: 5s
       timeout: 5s
       retries: 5
-    restart: unless-stopped
 
 volumes:
   postgres_data:
+    driver: local
   uploads_data:
+    driver: local
+
+networks:
+  rede-meuSite:
+    driver: bridge
