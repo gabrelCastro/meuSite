@@ -27,6 +27,7 @@ pipeline {
                     sh """
                         cp \$ENV_FILE ${DEPLOY_DIR}/.env
                         cd ${DEPLOY_DIR}
+                        git pull origin main
                         docker compose up -d --build
                     """
                 }
