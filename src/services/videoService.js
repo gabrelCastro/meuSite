@@ -19,17 +19,22 @@ function urlToEmbed(raw) {
 }
 
 function toPlainObject(video) {
+    const img = typeof video.img === 'string' ? video.img : (video.img && video.img.url) || '';
     return {
         id: video.id,
         titulo: video.titulo,
+        descricao: video.descricao || null,
         conteudo: video.conteudo,
-        img: video.img.url,
+        corpo: video.corpo || null,
+        img,
         createdAt: video.createdAt,
         updatedAt: video.updatedAt,
     };
 }
 
-function deleteFile(url) {
+function deleteFile(img) {
+    const url = typeof img === 'string' ? img : (img && img.url);
+    if (!url) return;
     const filePath = path.resolve('public', url.replace(/^\//, ''));
     fs.unlink(filePath, () => {});
 }
@@ -40,28 +45,32 @@ class VideoService {
         return videos.map(toPlainObject);
     }
 
-    static getById(id) {
-        return VideoRepository.findById(id);
+    static async getById(id) {
+        const video = await VideoRepository.findById(id);
+        return video ? toPlainObject(video) : null;
     }
 
-    static create({ titulo, url, filename }) {
+    static async create({ titulo, descricao, url, corpo, filename }) {
         const embed = urlToEmbed(url);
         if (!embed) throw new Error('URL inválida. Use um link do YouTube ou Vimeo.');
 
-        return VideoRepository.create({
+        const video = await VideoRepository.create({
             titulo: titulo.trim(),
+            descricao: descricao ? descricao.trim() : null,
             conteudo: embed,
+            corpo: corpo || null,
             img: { url: '/uploads/' + filename },
         });
+        return toPlainObject(video);
     }
 
-    static async update(id, { titulo, url, filename }) {
+    static async update(id, { titulo, descricao, url, corpo, filename }) {
         const video = await VideoRepository.findById(id);
         if (!video) throw new Error('Vídeo não encontrado');
 
         let img = video.img;
         if (filename) {
-            deleteFile(video.img.url);
+            deleteFile(video.img);
             img = { url: '/uploads/' + filename };
         }
 
@@ -72,17 +81,20 @@ class VideoService {
             conteudo = embed;
         }
 
-        return VideoRepository.update(video, {
+        const updated = await VideoRepository.update(video, {
             titulo: titulo ? titulo.trim() : video.titulo,
+            descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : video.descricao,
             conteudo,
+            corpo: corpo !== undefined ? (corpo || null) : video.corpo,
             img,
         });
+        return toPlainObject(updated);
     }
 
     static async delete(id) {
         const video = await VideoRepository.findById(id);
         if (!video) throw new Error('Vídeo não encontrado');
-        deleteFile(video.img.url);
+        deleteFile(video.img);
         return VideoRepository.delete(video);
     }
 }

@@ -33,8 +33,22 @@
                 <span class="hint">Suporta YouTube e Vimeo</span>
             </div>
 
+            <div class="campo">
+                <label for="descricao">Descrição curta <span class="hint">(opcional)</span></label>
+                <input type="text" id="descricao" name="descricao" class="input"
+                    placeholder="Breve descrição do vídeo" maxlength="500">
+            </div>
+
+            <div class="campo">
+                <label for="corpo">Conteúdo adicional <span class="hint">(opcional)</span></label>
+                <textarea name="corpo" id="corpo"></textarea>
+            </div>
+
             <button type="submit" class="btn-submit">Publicar Vídeo</button>
         </form>
     </div>
+
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="/js/videoForm.js"></script>
 </body>
 </html>

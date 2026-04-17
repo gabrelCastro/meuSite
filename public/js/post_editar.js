@@ -1,23 +1,34 @@
-document.getElementById('updateVideoForm').addEventListener('submit', function(event) {
+document.getElementById('updateVideoForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    tinymce.triggerSave();
+    if (window.tinymce) tinymce.triggerSave();
 
-    const formData = new FormData(this);
+    const form = this;
+    const submitBtn = form.querySelector('.btn-submit');
+    if (submitBtn) submitBtn.disabled = true;
 
-    fetch(this.action, {
-        method: 'PUT',
-        body: formData
-    })
-    .then(response => {
-        if (response.ok) {
-            window.location.href = '/postAdmin';
-        } else {
-            throw new Error('Erro ao atualizar post.');
+    try {
+        const resp = await fetch(form.action, {
+            method: 'PUT',
+            body: new FormData(form),
+            credentials: 'same-origin',
+            headers: { 'Accept': 'application/json' },
+        });
+
+        if (resp.status === 401) {
+            alert('Sessão expirada. Faça login novamente.');
+            window.location.href = '/login';
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Erro ao atualizar post. Tente novamente.');
-    });
+        if (resp.ok) {
+            window.location.href = '/postAdmin';
+            return;
+        }
+        const data = await resp.json().catch(function() { return { message: 'Erro desconhecido' }; });
+        alert('Erro ao atualizar post: ' + data.message);
+    } catch (err) {
+        alert('Erro ao atualizar post: ' + err.message);
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
+    }
 });

@@ -3,29 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="<%= video.titulo %>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/video.css">
-    <title><%= post.titulo %></title>
+    <title><%= video.titulo %> — videos</title>
 </head>
 <body>
     <header class="cabecalho">
-        <h1>explicando</h1>
+        <canvas id="particles"></canvas>
+        <a href="/videos" class="brand">videos</a>
         <nav>
             <a href="/home" class="linksNav">home</a>
             <a href="/blog" class="linksNav">meu_blog</a>
-            <a href="/explicando" class="linksNav">explicando</a>
+            <a href="/videos" class="linksNav">videos</a>
             <a href="/portfolio" class="linksNav">portfólio</a>
         </nav>
     </header>
 
-    <h1 class="tituloPost"><%= post.titulo %></h1>
-
-    <div class="texto">
-        <%- post.conteudo %>
+    <div class="voltar-wrapper">
+        <a href="/videos" class="btn-voltar">← voltar aos vídeos</a>
     </div>
+
+    <article class="video-article">
+        <header class="video-head">
+            <% if (video.createdAt) { %>
+                <time class="video-date" datetime="<%= new Date(video.createdAt).toISOString() %>">
+                    <%= new Date(video.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) %>
+                </time>
+            <% } %>
+            <h1 class="tituloPost"><%= video.titulo %></h1>
+        </header>
+
+        <% if (video.descricao) { %>
+            <p class="video-descricao"><%= video.descricao %></p>
+        <% } %>
+
+        <div class="texto">
+            <%- video.conteudo %>
+        </div>
+
+        <% if (video.corpo) { %>
+            <div class="video-corpo">
+                <%- video.corpo %>
+            </div>
+        <% } %>
+    </article>
 
     <footer>
         <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
     </footer>
+    <script src="/js/particles.js"></script>
 </body>
 </html>

@@ -13,9 +13,17 @@ const Video = database.define('video', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    descricao: {
+        type: Sequelize.STRING(500),
+        allowNull: true
+    },
     conteudo:{
         type: Sequelize.TEXT,
         allowNull: false
+    },
+    corpo: {
+        type: Sequelize.TEXT,
+        allowNull: true
     },
     img:{
         type: Sequelize.JSON,

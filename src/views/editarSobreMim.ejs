@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Sobre Mim — Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/form_admin.css">
+    <style>
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #818CF8;
+            margin-top: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2D3748;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #2D3748;
+            color: #C7D2FE;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.825rem;
+        }
+
+        .tag button {
+            background: none;
+            border: none;
+            color: #F87171;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .add-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .add-row input {
+            flex: 1;
+        }
+
+        .btn-add {
+            background-color: #2D3748;
+            border: 1px solid #4A5568;
+            border-radius: 8px;
+            color: #818CF8;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 10px 18px;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-add:hover { background-color: #4A5568; }
+
+        .exp-card {
+            background-color: #1A202C;
+            border: 1px solid #2D3748;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 12px;
+            position: relative;
+        }
+
+        .exp-card .campo { margin-bottom: 12px; }
+        .exp-card .campo:last-of-type { margin-bottom: 0; }
+
+        .btn-remove-exp {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: 1px solid #F87171;
+            border-radius: 6px;
+            color: #F87171;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-remove-exp:hover { background-color: rgba(248, 113, 113, 0.15); }
+
+        .foto-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #818CF8;
+            margin-top: 8px;
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .exp-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <a href="/admin" class="btn-voltar">← Admin</a>
+        <h1>Sobre Mim</h1>
+        <span></span>
+    </header>
+
+    <div class="form-container">
+        <form id="sobreMimForm" class="formulario" enctype="multipart/form-data">
+
+            <!-- Foto -->
+            <div class="campo">
+                <label for="fotoInput">Foto de perfil</label>
+                <% if (sobre && sobre.foto) { %>
+                    <img src="<%= sobre.foto %>" class="foto-preview" id="fotoPreview" alt="Foto atual">
+                <% } else { %>
+                    <img src="" class="foto-preview" id="fotoPreview" alt="" style="display:none;">
+                <% } %>
+                <input name="foto" type="file" accept="image/*" id="fotoInput" class="input-file">
+            </div>
+
+            <!-- Resumo -->
+            <div class="campo">
+                <label for="resumo">Resumo pessoal <span class="hint">(aparece com efeito typewriter)</span></label>
+                <textarea name="resumo" id="resumo" class="textarea" rows="3" required><%= sobre ? sobre.resumo : '' %></textarea>
+            </div>
+
+            <!-- Cargo e Empresa -->
+            <h3 class="section-title">Atuação</h3>
+            <div class="exp-grid">
+                <div class="campo">
+                    <label for="cargo">Cargo atual</label>
+                    <input type="text" id="cargo" name="cargo" class="input" value="<%= sobre ? sobre.cargo : '' %>" required>
+                </div>
+                <div class="campo">
+                    <label for="empresa">Empresa</label>
+                    <input type="text" id="empresa" name="empresa" class="input" value="<%= sobre ? sobre.empresa : '' %>" required>
+                </div>
+            </div>
+
+            <!-- Formação -->
+            <h3 class="section-title">Formação</h3>
+            <div class="exp-grid">
+                <div class="campo">
+                    <label for="formacao">Curso</label>
+                    <input type="text" id="formacao" name="formacao" class="input" value="<%= sobre ? sobre.formacao : '' %>" required>
+                </div>
+                <div class="campo">
+                    <label for="universidade">Universidade</label>
+                    <input type="text" id="universidade" name="universidade" class="input" value="<%= sobre ? sobre.universidade : '' %>" required>
+                </div>
+            </div>
+            <div class="campo">
+                <label for="previsaoFormatura">Previsão de conclusão</label>
+                <input type="text" id="previsaoFormatura" name="previsaoFormatura" class="input" value="<%= sobre ? sobre.previsaoFormatura : '' %>">
+            </div>
+
+            <!-- Tecnologias -->
+            <h3 class="section-title">Tecnologias</h3>
+            <div class="tag-container" id="techContainer">
+                <% if (sobre && sobre.tecnologias) { sobre.tecnologias.forEach(function(tech) { %>
+                    <span class="tag"><%= tech %><button type="button">&times;</button></span>
+                <% }); } %>
+            </div>
+            <div class="add-row">
+                <input type="text" id="newTech" class="input" placeholder="Ex: Java, Spring Boot...">
+                <button type="button" class="btn-add" id="addTechBtn">+ Adicionar</button>
+            </div>
+
+            <!-- Experiências -->
+            <h3 class="section-title">Experiências</h3>
+            <div id="expContainer">
+                <% if (sobre && sobre.experiencias) { sobre.experiencias.forEach(function(exp, i) { %>
+                    <div class="exp-card">
+                        <button type="button" class="btn-remove-exp">Remover</button>
+                        <div class="exp-grid">
+                            <div class="campo">
+                                <label>Empresa</label>
+                                <input type="text" class="input exp-empresa" value="<%= exp.empresa %>" required>
+                            </div>
+                            <div class="campo">
+                                <label>Cargo</label>
+                                <input type="text" class="input exp-cargo" value="<%= exp.cargo %>" required>
+                            </div>
+                        </div>
+                        <div class="campo" style="margin-top:12px">
+                            <label>Período</label>
+                            <input type="text" class="input exp-periodo" value="<%= exp.periodo %>" placeholder="Ex: Jan 2024 - Atual">
+                        </div>
+                        <div class="campo" style="margin-top:12px">
+                            <label>Descrição</label>
+                            <textarea class="textarea exp-descricao" rows="2"><%= exp.descricao %></textarea>
+                        </div>
+                    </div>
+                <% }); } %>
+            </div>
+            <button type="button" class="btn-add" id="addExpBtn" style="margin-top:12px">+ Nova experiência</button>
+
+            <button type="submit" class="btn-submit" style="margin-top:20px">Salvar</button>
+        </form>
+    </div>
+
+    <script src="/js/sobreMimAdmin.js"></script>
+</body>
+</html>

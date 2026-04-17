@@ -30,7 +30,6 @@ footer { margin-top: auto; }
     margin-bottom: 0;
 }
 
-/* Particles canvas */
 #particles {
     position: absolute;
     top: 0; left: 0;
@@ -41,13 +40,11 @@ footer { margin-top: auto; }
     mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
 }
 
-/* Todo conteúdo do header fica acima do canvas */
 .cabecalho > *:not(#particles) {
     position: relative;
     z-index: 1;
 }
 
-/* Linha gradiente separadora */
 .cabecalho::after {
     content: '';
     position: absolute;
@@ -67,7 +64,6 @@ footer { margin-top: auto; }
     z-index: 2;
 }
 
-/* LED pulsante centralizado */
 .cabecalho::before {
     content: '';
     position: absolute;
@@ -117,9 +113,9 @@ nav {
 
 .linksNav:hover { color: #818CF8; }
 
-/* ── Posts Grid ──────────────────────────────────── */
+/* ── Videos Grid ─────────────────────────────────── */
 
-.posts {
+.videos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
@@ -130,7 +126,7 @@ nav {
     box-sizing: border-box;
 }
 
-.posts-empty {
+.videos-empty {
     grid-column: 1 / -1;
     text-align: center;
     color: #64748B;
@@ -140,43 +136,55 @@ nav {
     border-radius: 10px;
 }
 
-.post {
+.video {
     background-color: #1A202C;
     border: 1px solid #2D3748;
     border-radius: 10px;
-    height: 320px;
     overflow: hidden;
-    position: relative;
     display: block;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.post:hover,
-.post:focus-visible {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+.video:hover,
+.video:focus-visible {
     border-color: #818CF8;
+    box-shadow: 0 8px 24px rgba(129, 140, 248, 0.15);
+    transform: translateY(-3px);
     outline: none;
 }
 
-.post img {
+/* Thumbnail com play overlay */
+.separacaoImagem {
+    position: relative;
     width: 100%;
-    height: 100%;
+}
+
+.separacaoImagem img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
 }
 
-/* Título sempre visível no fundo do card */
-.post-title {
+.play-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 40px 16px 16px;
-    background: linear-gradient(to top, rgba(10, 12, 18, 0.95) 60%, transparent);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: white;
 }
 
-.post-title .post-date {
+.video:hover .play-overlay { opacity: 1; }
+
+/* Info abaixo da thumbnail */
+.video-info {
+    padding: 12px 16px 16px;
+}
+
+.video-date {
     display: block;
     font-size: 0.72rem;
     color: #818CF8;
@@ -186,12 +194,24 @@ nav {
     margin-bottom: 6px;
 }
 
-.post-title h2 {
-    color: #E2E8F0;
+.video-info h2 {
     font-size: 0.95rem;
     font-weight: 600;
-    line-height: 1.4;
+    color: #E2E8F0;
+    line-height: 1.45;
+    word-wrap: break-word;
     margin: 0;
+}
+
+.video-desc {
+    font-size: 0.82rem;
+    color: #94A3B8;
+    line-height: 1.5;
+    margin-top: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* ── Footer ──────────────────────────────────────── */
@@ -215,11 +235,5 @@ footer {
 /* ── Responsive ──────────────────────────────────── */
 
 @media (max-width: 768px) {
-    .posts {
-        padding: 0 16px 48px;
-        gap: 16px;
-        grid-template-columns: 1fr;
-    }
-
-    .post { height: 260px; }
+    .videos { padding: 32px 16px 48px; gap: 16px; grid-template-columns: 1fr; }
 }

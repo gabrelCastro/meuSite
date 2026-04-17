@@ -2,6 +2,7 @@ const express = require('express');
 const path = require("path");
 const loginController = require(path.resolve("src","controllers","login"));
 const rateLimit = require('express-rate-limit');
+const { validateLogin } = require(path.resolve("src","middlewares","validators"));
 const routes = express.Router();
 
 const loginLimiter = rateLimit({
@@ -14,7 +15,7 @@ routes.get('/login', (req, res) => {
     res.render('login');
 });
 
-routes.post('/login', loginLimiter, loginController.fazerLogin);
+routes.post('/login', loginLimiter, validateLogin, loginController.fazerLogin);
 
 routes.post('/logout', (req, res) => {
     res.clearCookie('authorization');

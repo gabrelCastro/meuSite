@@ -4,3 +4,4 @@ sequelize.sqlite
 .claude
 public/uploads/*
 !public/uploads/.gitkeep
+backups/

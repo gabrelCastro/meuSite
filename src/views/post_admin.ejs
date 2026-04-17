@@ -23,7 +23,7 @@
             <span class="item-titulo"><%=posts[i].titulo%></span>
             <div class="item-acoes">
                 <a href="/postEditar/<%=posts[i].id%>" class="btn-editar">Editar</a>
-                <a href="#" data-id="<%=posts[i].id%>" class="btn-deletar" onclick="deletePost(this,event)">Deletar</a>
+                <button type="button" data-id="<%=posts[i].id%>" class="btn-deletar">Deletar</button>
             </div>
         </div>
         <% } %>

@@ -3,3 +3,4 @@ node_modules
 sequelize.sqlite
 .git
 .gitignore
+backups/

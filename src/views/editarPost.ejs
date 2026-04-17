@@ -23,6 +23,9 @@
 
             <div class="campo">
                 <label for="imageInput">Imagem de capa <span class="hint">(deixe vazio para manter a atual)</span></label>
+                <% if (post.img) { %>
+                    <img src="<%= post.img %>" alt="Capa atual" style="max-width: 280px; max-height: 160px; border-radius: 8px; border: 1px solid #2D3748; margin-bottom: 8px; display: block;">
+                <% } %>
                 <input name="imagem" type="file" accept="image/*" id="imageInput" class="input-file">
             </div>
 
