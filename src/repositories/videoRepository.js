@@ -3,7 +3,7 @@ const Video = require(path.resolve('src', 'database', 'Models', 'video'));
 
 class VideoRepository {
     static findAll() {
-        return Video.findAll();
+        return Video.findAll({ order: [['createdAt', 'DESC']] });
     }
 
     static findById(id) {

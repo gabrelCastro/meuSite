@@ -44,7 +44,11 @@ class SobreMimService {
 
         let exps = experiencias;
         if (typeof experiencias === 'string') {
-            exps = JSON.parse(experiencias);
+            try {
+                exps = JSON.parse(experiencias);
+            } catch (e) {
+                throw new Error('Formato de experiências inválido. Envie um JSON válido.');
+            }
         }
 
         return SobreMimRepository.upsert({

@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<%= post.titulo %>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/post.css">
     <title><%= post.titulo %> — meu_blog</title>
 </head>
 <body>
 
 <header class="cabecalho">
+    <canvas id="particles"></canvas>
     <a href="/home" class="brand">meu_blog</a>
     <nav>
         <a href="/home" class="linksNav">home</a>
         <a href="/blog" class="linksNav">meu_blog</a>
-        <a href="/explicando" class="linksNav">explicando</a>
+        <a href="/videos" class="linksNav">videos</a>
         <a href="/portfolio" class="linksNav">portfólio</a>
     </nav>
 </header>
@@ -48,6 +49,6 @@
 <footer>
     <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
 </footer>
-
+<script src="/js/particles.js"></script>
 </body>
 </html>

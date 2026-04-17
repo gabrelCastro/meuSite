@@ -20,19 +20,80 @@ footer { margin-top: auto; }
 /* ── Header ──────────────────────────────────────── */
 
 .cabecalho {
-    background-color: #1A202C;
-    border-bottom: 1px solid #2D3748;
-    padding: 28px 24px 32px;
+    background-color: #0F1117;
+    padding: 48px 24px 72px;
+    position: relative;
+    overflow: hidden;
     text-align: center;
+}
+
+#particles {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: auto;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+.cabecalho > *:not(#particles) {
+    position: relative;
+    z-index: 1;
+}
+
+.cabecalho::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(60%, 600px);
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(129, 140, 248, 0.15) 20%,
+        rgba(129, 140, 248, 0.5) 50%,
+        rgba(129, 140, 248, 0.15) 80%,
+        transparent 100%
+    );
+    z-index: 2;
+}
+
+.cabecalho::before {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #818CF8;
+    z-index: 3;
+    animation: ledPulse 3s ease-in-out infinite;
+}
+
+@keyframes ledPulse {
+    0%, 100% {
+        opacity: 0.7;
+        box-shadow: 0 0 10px rgba(129,140,248,0.6), 0 0 20px rgba(129,140,248,0.3), 0 0 0 3px rgba(129,140,248,0.08);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 16px rgba(129,140,248,0.95), 0 0 32px rgba(129,140,248,0.5), 0 0 0 5px rgba(129,140,248,0.12);
+    }
 }
 
 .brand {
     display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 700;
     color: #818CF8;
     margin-bottom: 20px;
     transition: color 0.2s;
+    text-shadow: 0 0 40px rgba(129, 140, 248, 0.25);
 }
 
 .brand:hover { color: #A5B4FC; }

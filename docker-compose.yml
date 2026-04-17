@@ -1,6 +1,5 @@
 services:
   app:
-    build: .
     image: meusite:main-latest
     container_name: meuSite
     restart: unless-stopped
@@ -36,6 +35,28 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  pg-backup:
+    image: prodrigestivill/postgres-backup-local:16-alpine
+    container_name: meuSite-backup
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-meusite}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      SCHEDULE: "@daily"
+      BACKUP_KEEP_DAYS: 2
+      BACKUP_KEEP_WEEKS: 0
+      BACKUP_KEEP_MONTHS: 0
+      HEALTHCHECK_PORT: 8080
+    volumes:
+      - ./backups:/backups
+    networks:
+      - rede-meuSite
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:

@@ -8,9 +8,9 @@ function wantsJson(req) {
 class PostController {
     static async postStore(req, res) {
         try {
-            if (!req.body.titulo || !req.body.conteudo || !req.file) {
-                if (wantsJson(req)) return res.status(400).json({ message: 'Campos obrigatórios não preenchidos' });
-                return res.status(400).send('Campos obrigatórios não preenchidos');
+            if (!req.file) {
+                if (wantsJson(req)) return res.status(400).json({ message: 'Imagem é obrigatória' });
+                return res.status(400).send('Imagem é obrigatória');
             }
             const post = await PostService.create({
                 titulo: req.body.titulo,

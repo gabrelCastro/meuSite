@@ -15,10 +15,10 @@
     </header>
 
     <div class="form-container">
-        <form id="updateVideoForm" method="POST" action="/videoEditar/<%=post.id%>" class="formulario" enctype="multipart/form-data">
+        <form id="updateVideoForm" method="POST" action="/videoEditar/<%=video.id%>" class="formulario" enctype="multipart/form-data">
             <div class="campo">
                 <label for="titulo">Título</label>
-                <input type="text" id="titulo" name="titulo" class="input" value="<%=post.titulo%>" required>
+                <input type="text" id="titulo" name="titulo" class="input" value="<%=video.titulo%>" required>
             </div>
 
             <div class="campo">
@@ -33,10 +33,24 @@
                 <span class="hint">Suporta YouTube e Vimeo</span>
             </div>
 
+            <div class="campo">
+                <label for="descricao">Descrição curta <span class="hint">(opcional)</span></label>
+                <input type="text" id="descricao" name="descricao" class="input"
+                    value="<%=video.descricao || ''%>" maxlength="500"
+                    placeholder="Breve descrição do vídeo">
+            </div>
+
+            <div class="campo">
+                <label for="corpo">Conteúdo adicional <span class="hint">(opcional)</span></label>
+                <textarea name="corpo" id="corpo"><%- video.corpo || '' %></textarea>
+            </div>
+
             <button type="submit" class="btn-submit">Salvar alterações</button>
         </form>
     </div>
 
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="/js/videoForm.js"></script>
     <script src="/js/video_editar.js"></script>
 </body>
 </html>

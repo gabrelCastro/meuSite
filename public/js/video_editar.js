@@ -1,25 +1,31 @@
 document.getElementById('updateVideoForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault();
 
-    const formData = new FormData(this); // Captura os dados do formulário
+    const btn = this.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Salvando…';
 
-    fetch(`${this.action}`, {
+    const formData = new FormData(this);
+
+    fetch(this.action, {
         method: 'PUT',
-        body: formData // Envia os dados do formulário
+        headers: { 'Accept': 'application/json' },
+        credentials: 'same-origin',
+        body: formData,
     })
-    .then(response => {
-        if (response.ok) {
-            window.location.href = '/videoAdmin';
-            return response.json(); // Converte a resposta para JSON
+    .then(function(response) {
+        if (response.status === 401) {
+            window.location.href = '/login';
+            return;
         }
-        throw new Error('Erro ao atualizar vídeo.');
+        if (!response.ok) {
+            return response.json().then(function(d) { throw new Error(d.message || 'Erro ao atualizar vídeo.'); });
+        }
+        window.location.href = '/videoAdmin';
     })
-    .then(data => {
-        alert(data.message); // Mensagem de sucesso
-        // Redireciona ou faz outras ações conforme necessário
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Erro ao atualizar vídeo.');
+    .catch(function(error) {
+        alert(error.message);
+        btn.disabled = false;
+        btn.textContent = 'Salvar alterações';
     });
 });

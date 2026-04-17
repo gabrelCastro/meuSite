@@ -31,10 +31,13 @@ class ProjetoController {
 
     static async create(req, res) {
         try {
-            if (!req.body.titulo || !req.body.descricao) {
-                return res.status(400).json({ message: 'Título e descrição são obrigatórios' });
-            }
-            const projeto = await ProjetoService.create(req.body);
+            const projeto = await ProjetoService.create({
+                titulo: req.body.titulo,
+                descricao: req.body.descricao,
+                tecnologias: req.body.tecnologias,
+                githubUrl: req.body.githubUrl,
+                demoUrl: req.body.demoUrl,
+            });
             res.status(201).json({ message: 'Projeto criado com sucesso!', projeto });
         } catch (err) {
             res.status(500).json({ message: err.message });
@@ -43,7 +46,13 @@ class ProjetoController {
 
     static async update(req, res) {
         try {
-            const projeto = await ProjetoService.update(Number(req.params.id), req.body);
+            const projeto = await ProjetoService.update(Number(req.params.id), {
+                titulo: req.body.titulo,
+                descricao: req.body.descricao,
+                tecnologias: req.body.tecnologias,
+                githubUrl: req.body.githubUrl,
+                demoUrl: req.body.demoUrl,
+            });
             res.status(200).json({ message: 'Projeto atualizado com sucesso!', projeto });
         } catch (err) {
             res.status(500).json({ message: err.message });
