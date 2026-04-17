@@ -23,18 +23,83 @@ footer { margin-top: auto; }
 /* ── Header ──────────────────────────────────────── */
 
 .cabecalho {
-    background-color: #1A202C;
-    border-bottom: 1px solid #2D3748;
-    padding: 32px 24px;
-    margin-bottom: 48px;
+    background-color: #0F1117;
+    padding: 48px 24px 72px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
 }
 
-h1 {
+/* Particles canvas */
+#particles {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: auto;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+/* Todo conteúdo do header fica acima do canvas */
+.cabecalho > *:not(#particles) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Linha gradiente separadora */
+.cabecalho::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(60%, 600px);
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(129, 140, 248, 0.15) 20%,
+        rgba(129, 140, 248, 0.5) 50%,
+        rgba(129, 140, 248, 0.15) 80%,
+        transparent 100%
+    );
+    z-index: 2;
+}
+
+/* LED pulsante centralizado */
+.cabecalho::before {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #818CF8;
+    z-index: 3;
+    animation: ledPulse 3s ease-in-out infinite;
+}
+
+@keyframes ledPulse {
+    0%, 100% {
+        opacity: 0.7;
+        box-shadow: 0 0 10px rgba(129,140,248,0.6), 0 0 20px rgba(129,140,248,0.3), 0 0 0 3px rgba(129,140,248,0.08);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 16px rgba(129,140,248,0.95), 0 0 32px rgba(129,140,248,0.5), 0 0 0 5px rgba(129,140,248,0.12);
+    }
+}
+
+.page-title {
+    font-family: 'JetBrains Mono', monospace;
     font-size: clamp(1.6rem, 3.5vw, 2.4rem);
     font-weight: 700;
     color: #818CF8;
     text-align: center;
     margin-bottom: 20px;
+    text-shadow: 0 0 40px rgba(129, 140, 248, 0.25);
 }
 
 nav {
@@ -55,34 +120,43 @@ nav {
 /* ── Posts Grid ──────────────────────────────────── */
 
 .posts {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
-    padding: 0 40px 60px;
-    justify-content: center;
+    padding: 48px 40px 60px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
-.perPost {
-    flex: 1 1 320px;
-    max-width: 400px;
+.posts-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #64748B;
+    font-size: 0.95rem;
+    padding: 48px 20px;
+    border: 1px dashed #2D3748;
+    border-radius: 10px;
 }
 
 .post {
     background-color: #1A202C;
     border: 1px solid #2D3748;
     border-radius: 10px;
-    width: 100%;
     height: 320px;
     overflow: hidden;
     position: relative;
-    cursor: pointer;
+    display: block;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.post:hover {
+.post:hover,
+.post:focus-visible {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     border-color: #818CF8;
+    outline: none;
 }
 
 .post img {
@@ -100,6 +174,16 @@ nav {
     width: 100%;
     padding: 40px 16px 16px;
     background: linear-gradient(to top, rgba(10, 12, 18, 0.95) 60%, transparent);
+}
+
+.post-title .post-date {
+    display: block;
+    font-size: 0.72rem;
+    color: #818CF8;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 
 .post-title h2 {
@@ -131,9 +215,11 @@ footer {
 /* ── Responsive ──────────────────────────────────── */
 
 @media (max-width: 768px) {
-    .posts { padding: 0 16px 48px; gap: 16px; }
+    .posts {
+        padding: 0 16px 48px;
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
 
     .post { height: 260px; }
-
-    .perPost { flex: 1 1 280px; max-width: 100%; }
 }

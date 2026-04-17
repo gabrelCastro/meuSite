@@ -1,9 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+function isAjax(req) {
+    return req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+}
+
 module.exports = async (req, res, next) => {
     const tokenReady = req.cookies.authorization;
 
     if (!tokenReady) {
+        if (isAjax(req)) return res.status(401).json({ message: 'Não autenticado' });
         return res.redirect('/login');
     }
 
@@ -11,6 +16,7 @@ module.exports = async (req, res, next) => {
         jwt.verify(tokenReady, process.env.TOKEN);
         next();
     } catch (err) {
+        if (isAjax(req)) return res.status(401).json({ message: 'Token inválido' });
         return res.redirect('/login');
     }
 }

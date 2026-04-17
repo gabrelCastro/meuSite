@@ -3,7 +3,7 @@ const Post = require(path.resolve('src', 'database', 'Models', 'Post'));
 
 class PostRepository {
     static findAll() {
-        return Post.findAll();
+        return Post.findAll({ order: [['createdAt', 'DESC']] });
     }
 
     static findById(id) {

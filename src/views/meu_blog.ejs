@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Blog — artigos sobre programação e tecnologia">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/blog.css">
     <title>meu_blog</title>
 </head>
 <body>
     <header class="cabecalho">
-        <h1>meu_blog</h1>
+        <canvas id="particles"></canvas>
+        <h1 class="page-title">meu_blog</h1>
         <nav>
             <a href="/home" class="linksNav">home</a>
             <a href="/blog" class="linksNav">meu_blog</a>
@@ -18,21 +20,31 @@
         </nav>
     </header>
 
-    <div class="posts">
-        <% for (let i = 0; i < posts.length; i++) { %>
-            <div class="post" id="<%=posts[i].id%>">
-                <img src="<%= posts[i].img %>" alt="Imagem do post">
-                <div class="post-title">
-                    <h2><%= posts[i].titulo %></h2>
-                </div>
-            </div>
+    <main class="posts">
+        <% if (!posts || posts.length === 0) { %>
+            <p class="posts-empty">Nenhum post publicado ainda.</p>
+        <% } else { %>
+            <% posts.forEach(function(p) { %>
+                <a href="/post/<%= p.id %>" class="post" aria-label="<%= p.titulo %>">
+                    <% if (p.img) { %>
+                        <img src="<%= p.img %>" alt="" loading="lazy">
+                    <% } %>
+                    <div class="post-title">
+                        <% if (p.createdAt) { %>
+                            <time class="post-date" datetime="<%= new Date(p.createdAt).toISOString() %>">
+                                <%= new Date(p.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+                            </time>
+                        <% } %>
+                        <h2><%= p.titulo %></h2>
+                    </div>
+                </a>
+            <% }); %>
         <% } %>
-    </div>
+    </main>
 
     <footer>
         <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
     </footer>
-
-    <script src="/js/blog.js"></script>
+    <script src="/js/particles.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ const Post = require(path.resolve("src","routes","CRUD","post"));
 const Admin = require(path.resolve("src","routes","CRUD","admin"));
 const Video = require(path.resolve("src","routes","CRUD","video"));
 const Projeto = require(path.resolve("src","routes","CRUD","projeto"));
+const SobreMim = require(path.resolve("src","routes","CRUD","sobreMim"));
 const cookieParser = require('cookie-parser');
 
 
@@ -34,6 +35,7 @@ const routes = (app) => {
     app.use(Admin);
     app.use(Login);
     app.use(Projeto);
+    app.use(SobreMim);
 
 };
 
