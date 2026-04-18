@@ -1,5 +1,6 @@
 services:
   app:
+    build: .
     image: meusite:main-latest
     container_name: meuSite
     restart: unless-stopped

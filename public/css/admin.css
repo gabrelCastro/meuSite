@@ -63,13 +63,9 @@ body::after {
 }
 :root[data-theme="light"] #bgfx { opacity: 0.42; }
 
-.container, .tweaks-overlay, .tweaks {
+.container {
     position: relative;
     z-index: 1;
-}
-.tweaks { z-index: 80; }
-
-.container {
     background: var(--bg-1);
     border: 1px solid var(--line);
     border-radius: 12px;

@@ -60,11 +60,10 @@ body::after {
 }
 :root[data-theme="light"] #bgfx { opacity: 0.42; }
 
-.admin-header, .lista, .tweaks-overlay, .tweaks {
+.admin-header, .lista {
     position: relative;
     z-index: 1;
 }
-.tweaks { z-index: 80; }
 
 .admin-header {
     display: flex;
