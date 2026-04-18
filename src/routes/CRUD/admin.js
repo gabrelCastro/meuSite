@@ -9,11 +9,11 @@ routes.get('/admin', auth,(req, res) => {
   });
 
   routes.get('/criarPost', auth,(req, res) => {
-    res.render('criarPost'); 
+    res.render('criarPost', { error: req.query.error || null });
   });
 
   routes.get('/criarVideo', auth,(req, res) => {
-    res.render('criarVideo'); 
+    res.render('criarVideo', { error: req.query.error || null });
   });
 
 

@@ -11,7 +11,7 @@ class AuthService {
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) return null;
 
-        return jwt.sign({ id: user.user }, process.env.TOKEN, { expiresIn: '365d' });
+        return jwt.sign({ id: user.user }, process.env.TOKEN, { algorithm: 'HS256', expiresIn: '365d' });
     }
 }
 

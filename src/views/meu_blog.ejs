@@ -4,34 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>blog — gabrel.tech</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Geist:wght@400;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/css/site.css" />
-<script src="/js/tweaks-default.js"></script>
+<meta name="description" content="Blog de Gabriel Ferreira de Castro sobre programação, arquitetura de software e o dia-a-dia de engenharia." />
+<link rel="canonical" href="https://gabrel.tech/blog" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="gabrel.tech" />
+<meta property="og:title" content="blog — gabrel.tech" />
+<meta property="og:description" content="Blog de Gabriel Ferreira de Castro sobre programação, arquitetura de software e o dia-a-dia de engenharia." />
+<meta property="og:url" content="https://gabrel.tech/blog" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="blog — gabrel.tech" />
+<meta name="twitter:description" content="Blog de Gabriel Ferreira de Castro sobre programação, arquitetura de software e o dia-a-dia de engenharia." />
+<%- include('partials/head-common') %>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a href="/home" class="brand" aria-label="gabrel.tech">
-      <span class="dot" aria-hidden="true"></span>
-      <span>gabrel<span class="slash">.</span>tech</span>
-    </a>
-    <nav class="nav" id="main-nav" aria-label="Principal">
-      <a href="/home">home</a>
-      <a href="/blog" aria-current="page">blog</a>
-      <a href="/videos">vídeos</a>
-      <a href="/portfolio">portfólio</a>
-      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (T)">
-        <svg class="ico" viewBox="0 0 24 24" id="theme-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-      </button>
-    </nav>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
-      <span class="bar"><span></span><span></span><span></span></span>
-    </button>
-  </div>
-</header>
+<%- include('partials/nav') %>
 
 <main class="page">
   <div class="page-head">
@@ -96,10 +83,7 @@
     <% } %>
   </div>
 
-  <footer class="foot">
-    <div class="left"><span>© 2025 Gabriel Ferreira de Castro</span></div>
-    <div><span class="kbd">T</span> tema</div>
-  </footer>
+  <%- include('partials/footer') %>
 </main>
 
 

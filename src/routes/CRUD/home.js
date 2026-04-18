@@ -9,7 +9,7 @@ routes.get('/', (req, res) => {
 
 routes.get('/home', async (req, res) => {
     const sobre = await SobreMimService.get();
-    res.render('home', { sobre });
+    res.render('home', { sobre, currentPage: 'home' });
 });
 
 module.exports = routes;

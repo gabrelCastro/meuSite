@@ -5,7 +5,7 @@ class ProjetoController {
     static async getPortfolio(req, res) {
         try {
             const projetos = await ProjetoService.getAll();
-            res.render('portfolio', { projetos });
+            res.render('portfolio', { projetos, currentPage: 'portfolio' });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }

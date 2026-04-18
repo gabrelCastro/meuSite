@@ -1,16 +1,13 @@
 const path = require('path');
 const VideoService = require(path.resolve('src', 'services', 'videoService'));
-
-function wantsJson(req) {
-    return req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
-}
+const { wantsJson } = require(path.resolve('src', 'utils', 'request'));
 
 class VideoController {
     static async videoStore(req, res) {
         try {
             if (!req.file) {
                 if (wantsJson(req)) return res.status(400).json({ message: 'Imagem é obrigatória' });
-                return res.status(400).send('Imagem é obrigatória');
+                return res.redirect('/criarVideo?error=Imagem+é+obrigatória');
             }
             const video = await VideoService.create({
                 titulo: req.body.titulo,
@@ -25,14 +22,14 @@ class VideoController {
             return res.redirect('/videoAdmin');
         } catch (err) {
             if (wantsJson(req)) return res.status(400).json({ message: err.message });
-            return res.status(400).send('Erro: ' + err.message);
+            return res.redirect('/criarVideo?error=Erro+ao+salvar+vídeo');
         }
     }
 
     static async getVideo(req, res) {
         try {
             const videos = await VideoService.getAll();
-            res.render('videos', { videos });
+            res.render('videos', { videos, currentPage: 'videos' });
         } catch (err) {
             res.status(500).send('Erro ao carregar vídeos');
         }
@@ -42,7 +39,7 @@ class VideoController {
         try {
             const video = await VideoService.getById(Number(req.params.id));
             if (!video) return res.status(404).send('Vídeo não encontrado');
-            res.render('video', { video });
+            res.render('video', { video, currentPage: 'videos' });
         } catch (err) {
             res.status(500).send('Erro ao carregar vídeo');
         }
@@ -52,7 +49,7 @@ class VideoController {
         try {
             const video = await VideoService.getById(Number(req.params.id));
             if (!video) return res.status(404).send('Vídeo não encontrado');
-            res.render('editarVideo', { video });
+            res.render('editarVideo', { video, error: req.query.error || null });
         } catch (err) {
             res.status(500).send('Erro ao carregar vídeo');
         }
@@ -91,7 +88,7 @@ class VideoController {
             return res.redirect('/videoAdmin');
         } catch (err) {
             if (wantsJson(req)) return res.status(400).json({ message: err.message });
-            return res.status(400).send('Erro: ' + err.message);
+            return res.redirect('/videoEditar/' + req.params.id + '?error=Erro+ao+salvar+vídeo');
         }
     }
 }

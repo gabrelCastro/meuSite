@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/list_admin.css">
     <link rel="stylesheet" href="/css/tweaks-panel.css">
-    <script src="/js/tweaks-default.js"></script>
     <title>Portfólio — Admin</title>
 </head>
 <body>
@@ -39,49 +38,5 @@
     <script src="/js/projetoAdmin.js"></script>
 </body>
 
-<div class="tweaks-overlay" id="tweaks-overlay"></div>
-<aside class="tweaks" id="tweaks" aria-label="Tweaks" role="dialog" aria-modal="true">
-  <div class="tweaks-header">
-    <h4>// <span class="accent">tweaks</span>.config</h4>
-    <button class="tweaks-close-btn" id="tweaks-close">fechar ×</button>
-  </div>
-  <div class="tweak-row">
-    <label>tema<span class="val" id="lbl-theme">dark</span></label>
-    <div class="seg" data-key="theme">
-      <button data-val="dark">dark</button>
-      <button data-val="light">light</button>
-    </div>
-  </div>
-  <div class="tweak-row">
-    <label>cor de destaque</label>
-    <div class="swatches" data-key="accent">
-      <button data-val="lime" title="lime" style="background: oklch(0.82 0.18 130)"></button>
-      <button data-val="amber" title="amber" style="background: oklch(0.82 0.17 75)"></button>
-      <button data-val="cyan" title="cyan" style="background: oklch(0.78 0.13 210)"></button>
-      <button data-val="magenta" title="magenta" style="background: oklch(0.72 0.22 340)"></button>
-      <button data-val="red" title="red" style="background: oklch(0.7 0.2 25)"></button>
-    </div>
-  </div>
-  <div class="tweak-row">
-    <label>densidade<span class="val" id="lbl-density">airy</span></label>
-    <div class="seg" data-key="density">
-      <button data-val="compact">compact</button>
-      <button data-val="cozy">cozy</button>
-      <button data-val="airy">airy</button>
-    </div>
-  </div>
-  <div class="tweak-row">
-    <label>background<span class="val" id="lbl-bg">grid</span></label>
-    <div class="seg" data-key="bg" style="flex-wrap:wrap">
-      <button data-val="off">off</button>
-      <button data-val="grid">grid</button>
-      <button data-val="matrix">matrix</button>
-      <button data-val="constellation">stars</button>
-      <button data-val="ascii">ascii</button>
-    </div>
-  </div>
-</aside>
-
-<script src="/js/bgfx.js"></script>
-<script src="/js/tweaks-admin.js"></script>
+<%- include('partials/tweaks-panel') %>
 </html>

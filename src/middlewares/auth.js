@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
     }
 
     try {
-        jwt.verify(tokenReady, process.env.TOKEN);
+        jwt.verify(tokenReady, process.env.TOKEN, { algorithms: ['HS256'] });
         next();
     } catch (err) {
         if (isAjax(req)) return res.status(401).json({ message: 'Token inválido' });

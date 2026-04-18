@@ -13,12 +13,10 @@ class SobreMimController {
 
     static async upsert(req, res) {
         try {
-            console.log('[SobreMim] upsert body:', JSON.stringify(req.body));
-            console.log('[SobreMim] upsert file:', req.file ? req.file.filename : 'nenhum');
             const files = req.files || {};
             const fotoFile = files.foto ? files.foto[0] : null;
             const curriculoFile = files.curriculo ? files.curriculo[0] : null;
-            const result = await SobreMimService.upsert({
+            await SobreMimService.upsert({
                 resumo: req.body.resumo,
                 cargo: req.body.cargo,
                 empresa: req.body.empresa,
@@ -30,10 +28,8 @@ class SobreMimController {
                 filename: fotoFile ? fotoFile.filename : null,
                 curriculoFilename: curriculoFile ? curriculoFile.filename : null,
             });
-            console.log('[SobreMim] salvo com sucesso, id:', result.id);
             res.status(200).json({ message: 'Sobre Mim atualizado com sucesso!' });
         } catch (err) {
-            console.error('[SobreMim] erro ao salvar:', err.message);
             res.status(500).json({ message: err.message });
         }
     }

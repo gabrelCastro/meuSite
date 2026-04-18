@@ -18,7 +18,11 @@ routes.get('/login', (req, res) => {
 routes.post('/login', loginLimiter, validateLogin, loginController.fazerLogin);
 
 routes.post('/logout', (req, res) => {
-    res.clearCookie('authorization');
+    res.clearCookie('authorization', {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+    });
     return res.redirect('/login');
 });
 

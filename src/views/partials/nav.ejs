@@ -1,0 +1,22 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/home" class="brand" aria-label="gabrel.tech">
+      <span class="dot" aria-hidden="true"></span>
+      <span>gabrel<span class="slash">.</span>tech</span>
+    </a>
+    <nav class="nav" id="main-nav" aria-label="Principal">
+      <a href="/home" <%- currentPage === 'home' ? 'aria-current="page"' : '' %>>home</a>
+      <a href="/blog" <%- currentPage === 'blog' ? 'aria-current="page"' : '' %>>blog</a>
+      <a href="/videos" <%- currentPage === 'videos' ? 'aria-current="page"' : '' %>>vídeos</a>
+      <a href="/portfolio" <%- currentPage === 'portfolio' ? 'aria-current="page"' : '' %>>portfólio</a>
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (T)">
+        <svg class="ico" viewBox="0 0 24 24" id="theme-icon">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+        </svg>
+      </button>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="bar"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>

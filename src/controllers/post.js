@@ -1,16 +1,13 @@
 const path = require('path');
 const PostService = require(path.resolve('src', 'services', 'postService'));
-
-function wantsJson(req) {
-    return req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
-}
+const { wantsJson } = require(path.resolve('src', 'utils', 'request'));
 
 class PostController {
     static async postStore(req, res) {
         try {
             if (!req.file) {
                 if (wantsJson(req)) return res.status(400).json({ message: 'Imagem é obrigatória' });
-                return res.status(400).send('Imagem é obrigatória');
+                return res.redirect('/criarPost?error=Imagem+é+obrigatória');
             }
             const post = await PostService.create({
                 titulo: req.body.titulo,
@@ -24,14 +21,14 @@ class PostController {
             return res.redirect('/postAdmin');
         } catch (err) {
             if (wantsJson(req)) return res.status(500).json({ message: err.message });
-            return res.status(500).send('Erro: ' + err.message);
+            return res.redirect('/criarPost?error=Erro+ao+salvar+post');
         }
     }
 
     static async getPost(req, res) {
         try {
             const posts = await PostService.getAll();
-            res.render('meu_blog', { posts });
+            res.render('meu_blog', { posts, currentPage: 'blog' });
         } catch (err) {
             res.status(500).send('Erro ao carregar posts');
         }
@@ -41,7 +38,7 @@ class PostController {
         try {
             const post = await PostService.getById(Number(req.params.id));
             if (!post) return res.status(404).send('Post não encontrado');
-            res.render('post', { post });
+            res.render('post', { post, currentPage: 'blog' });
         } catch (err) {
             res.status(500).send('Erro ao carregar post');
         }
@@ -51,7 +48,7 @@ class PostController {
         try {
             const post = await PostService.getById(Number(req.params.id));
             if (!post) return res.status(404).send('Post não encontrado');
-            res.render('editarPost', { post });
+            res.render('editarPost', { post, error: req.query.error || null });
         } catch (err) {
             res.status(500).send('Erro ao carregar post');
         }
@@ -89,7 +86,7 @@ class PostController {
             return res.redirect('/postAdmin');
         } catch (err) {
             if (wantsJson(req)) return res.status(500).json({ message: err.message });
-            return res.status(500).send('Erro: ' + err.message);
+            return res.redirect('/postEditar/' + req.params.id + '?error=Erro+ao+salvar+post');
         }
     }
 }
