@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/tweaks-panel.css">
     <script src="/js/tweaks-default.js"></script>
 </head>
 <body>
+    <canvas id="bgfx"></canvas>
+
     <div class="container">
-        <h1>ADMIN</h1>
+        <h1>// admin</h1>
 
         <div class="botoes">
-            <a href="/sobreMimAdmin" class="botao">Sobre Mim</a>
-            <a href="/postAdmin" class="botao">Posts</a>
-            <a href="/videoAdmin" class="botao">Vídeos</a>
-            <a href="/portfolioAdmin" class="botao">Portfólio</a>
+            <a href="/sobreMimAdmin" class="botao">sobre mim</a>
+            <a href="/postAdmin" class="botao">posts</a>
+            <a href="/videoAdmin" class="botao">vídeos</a>
+            <a href="/portfolioAdmin" class="botao">portfólio</a>
         </div>
 
         <div class="rodape">
-            <a href="/home" class="link-rodape">← Ir para Home</a>
+            <a href="/home" class="link-rodape">← home</a>
             <div style="display:flex;gap:8px;align-items:center">
-                <button type="button" id="open-tweaks" class="btn-logout" style="border-color:#818CF8;color:#818CF8">⚙ tweaks</button>
+                <button type="button" id="open-tweaks" class="btn-tweaks">⚙ tweaks</button>
                 <form action="/logout" method="POST">
-                    <button type="submit" class="btn-logout">Logout</button>
+                    <button type="submit" class="btn-logout">logout</button>
                 </form>
             </div>
         </div>
@@ -73,14 +75,8 @@
       <button data-val="ascii">ascii</button>
     </div>
   </div>
-  <div class="tweak-row">
-    <label>modo hero</label>
-    <div class="seg" data-key="heroMode">
-      <button data-val="terminal">terminal</button>
-      <button data-val="static">estático</button>
-    </div>
-  </div>
 </aside>
 
+<script src="/js/bgfx.js"></script>
 <script src="/js/tweaks-admin.js"></script>
 </html>

@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Sobre Mim — Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/form_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/form_admin.css">
+    <link rel="stylesheet" href="/css/tweaks-panel.css">
+    <script src="/js/tweaks-default.js"></script>
     <style>
         .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #818CF8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
             margin-top: 12px;
             padding-bottom: 8px;
-            border-bottom: 1px solid #2D3748;
+            border-bottom: 1px solid var(--line);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
         .tag-container {
@@ -27,17 +31,18 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background-color: #2D3748;
-            color: #C7D2FE;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.825rem;
+            background: var(--bg-2);
+            color: var(--fg-2);
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            border: 1px solid var(--line-2);
         }
 
         .tag button {
             background: none;
             border: none;
-            color: #F87171;
+            color: var(--red);
             cursor: pointer;
             font-size: 1rem;
             padding: 0;
@@ -50,30 +55,28 @@
             margin-top: 8px;
         }
 
-        .add-row input {
-            flex: 1;
-        }
+        .add-row input { flex: 1; }
 
         .btn-add {
-            background-color: #2D3748;
-            border: 1px solid #4A5568;
-            border-radius: 8px;
-            color: #818CF8;
+            background: var(--bg-2);
+            border: 1px solid var(--line-2);
+            border-radius: 6px;
+            color: var(--accent);
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
+            font-family: var(--mono);
+            font-size: 0.82rem;
             font-weight: 600;
-            padding: 10px 18px;
-            transition: background-color 0.2s;
+            padding: 9px 16px;
+            transition: background-color 0.15s;
             white-space: nowrap;
         }
 
-        .btn-add:hover { background-color: #4A5568; }
+        .btn-add:hover { background: var(--line); }
 
         .exp-card {
-            background-color: #1A202C;
-            border: 1px solid #2D3748;
-            border-radius: 10px;
+            background: var(--bg-1);
+            border: 1px solid var(--line);
+            border-radius: 8px;
             padding: 20px;
             margin-top: 12px;
             position: relative;
@@ -87,23 +90,24 @@
             top: 12px;
             right: 12px;
             background: none;
-            border: 1px solid #F87171;
-            border-radius: 6px;
-            color: #F87171;
+            border: 1px solid var(--red);
+            border-radius: 5px;
+            color: var(--red);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-family: var(--mono);
             padding: 4px 10px;
-            transition: background-color 0.2s;
+            transition: background-color 0.15s;
         }
 
-        .btn-remove-exp:hover { background-color: rgba(248, 113, 113, 0.15); }
+        .btn-remove-exp:hover { background: color-mix(in srgb, var(--red) 15%, transparent); }
 
         .foto-preview {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #818CF8;
+            border: 2px solid var(--accent);
             margin-top: 8px;
         }
 
@@ -119,10 +123,12 @@
     </style>
 </head>
 <body>
+    <canvas id="bgfx"></canvas>
+
     <header class="admin-header">
-        <a href="/admin" class="btn-voltar">← Admin</a>
+        <a href="/admin" class="btn-voltar">← admin</a>
         <h1>Sobre Mim</h1>
-        <span></span>
+        <button type="button" id="open-tweaks" class="btn-tweaks">⚙</button>
     </header>
 
     <div class="form-container">
@@ -143,8 +149,8 @@
             <div class="campo">
                 <label for="curriculoInput">Currículo (PDF)</label>
                 <% if (sobre && sobre.curriculo) { %>
-                    <p style="margin:4px 0 8px;font-size:0.85rem;color:#A0AEC0;">
-                        Atual: <a href="<%= sobre.curriculo %>" target="_blank" style="color:#818CF8">ver currículo ↗</a>
+                    <p style="margin:4px 0 8px;font-size:0.82rem;color:var(--fg-3)">
+                        Atual: <a href="<%= sobre.curriculo %>" target="_blank" style="color:var(--accent)">ver currículo ↗</a>
                     </p>
                 <% } %>
                 <input name="curriculo" type="file" accept="application/pdf" id="curriculoInput" class="input-file">
@@ -234,4 +240,50 @@
 
     <script src="/js/sobreMimAdmin.js"></script>
 </body>
+
+<div class="tweaks-overlay" id="tweaks-overlay"></div>
+<aside class="tweaks" id="tweaks" aria-label="Tweaks" role="dialog" aria-modal="true">
+  <div class="tweaks-header">
+    <h4>// <span class="accent">tweaks</span>.config</h4>
+    <button class="tweaks-close-btn" id="tweaks-close">fechar ×</button>
+  </div>
+  <div class="tweak-row">
+    <label>tema<span class="val" id="lbl-theme">dark</span></label>
+    <div class="seg" data-key="theme">
+      <button data-val="dark">dark</button>
+      <button data-val="light">light</button>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <label>cor de destaque</label>
+    <div class="swatches" data-key="accent">
+      <button data-val="lime" title="lime" style="background: oklch(0.82 0.18 130)"></button>
+      <button data-val="amber" title="amber" style="background: oklch(0.82 0.17 75)"></button>
+      <button data-val="cyan" title="cyan" style="background: oklch(0.78 0.13 210)"></button>
+      <button data-val="magenta" title="magenta" style="background: oklch(0.72 0.22 340)"></button>
+      <button data-val="red" title="red" style="background: oklch(0.7 0.2 25)"></button>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <label>densidade<span class="val" id="lbl-density">airy</span></label>
+    <div class="seg" data-key="density">
+      <button data-val="compact">compact</button>
+      <button data-val="cozy">cozy</button>
+      <button data-val="airy">airy</button>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <label>background<span class="val" id="lbl-bg">grid</span></label>
+    <div class="seg" data-key="bg" style="flex-wrap:wrap">
+      <button data-val="off">off</button>
+      <button data-val="grid">grid</button>
+      <button data-val="matrix">matrix</button>
+      <button data-val="constellation">stars</button>
+      <button data-val="ascii">ascii</button>
+    </div>
+  </div>
+</aside>
+
+<script src="/js/bgfx.js"></script>
+<script src="/js/tweaks-admin.js"></script>
 </html>
