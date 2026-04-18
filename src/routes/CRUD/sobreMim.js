@@ -7,7 +7,7 @@ const auth = require(path.resolve('src', 'middlewares', 'auth'));
 const { validateSobreMimUpsert } = require(path.resolve('src', 'middlewares', 'validators'));
 
 routes.get('/sobreMimAdmin', auth, SobreMimController.getAdmin);
-routes.post('/sobreMim', auth, upload.single('foto'), validateSobreMimUpsert, SobreMimController.upsert);
+routes.post('/sobreMim', auth, upload.fields([{ name: 'foto', maxCount: 1 }, { name: 'curriculo', maxCount: 1 }]), validateSobreMimUpsert, SobreMimController.upsert);
 routes.get('/api/sobreMim', SobreMimController.getAPI);
 
 module.exports = routes;

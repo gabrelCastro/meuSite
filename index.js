@@ -16,6 +16,7 @@ app.use(helmet({
             imgSrc: ["'self'", "data:", "blob:", "https://i.ytimg.com", "https://*.ytimg.com"],
             connectSrc: ["'self'"],
             frameSrc: ["'self'", "blob:", "https://www.youtube.com", "https://www.youtube-nocookie.com", "https://player.vimeo.com"],
+            workerSrc: ["'self'", "blob:"],
         },
     },
     referrerPolicy: { policy: 'strict-origin-when-cross-origin' },

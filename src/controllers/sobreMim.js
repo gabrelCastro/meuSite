@@ -15,6 +15,9 @@ class SobreMimController {
         try {
             console.log('[SobreMim] upsert body:', JSON.stringify(req.body));
             console.log('[SobreMim] upsert file:', req.file ? req.file.filename : 'nenhum');
+            const files = req.files || {};
+            const fotoFile = files.foto ? files.foto[0] : null;
+            const curriculoFile = files.curriculo ? files.curriculo[0] : null;
             const result = await SobreMimService.upsert({
                 resumo: req.body.resumo,
                 cargo: req.body.cargo,
@@ -24,7 +27,8 @@ class SobreMimController {
                 previsaoFormatura: req.body.previsaoFormatura,
                 tecnologias: req.body.tecnologias,
                 experiencias: req.body.experiencias,
-                filename: req.file ? req.file.filename : null,
+                filename: fotoFile ? fotoFile.filename : null,
+                curriculoFilename: curriculoFile ? curriculoFile.filename : null,
             });
             console.log('[SobreMim] salvo com sucesso, id:', result.id);
             res.status(200).json({ message: 'Sobre Mim atualizado com sucesso!' });

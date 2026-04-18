@@ -46,6 +46,10 @@ const SobreMim = database.define('sobre_mim', {
     foto: {
         type: Sequelize.JSON,
         allowNull: true
+    },
+    curriculo: {
+        type: Sequelize.JSON,
+        allowNull: true
     }
 });
 

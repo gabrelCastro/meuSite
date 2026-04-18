@@ -20,17 +20,20 @@ class ProjetoService {
         return ProjetoRepository.findById(id);
     }
 
-    static create({ titulo, descricao, tecnologias, githubUrl, demoUrl }) {
+    static create({ titulo, descricao, tecnologias, githubUrl, demoUrl, tipo, papel, status }) {
         return ProjetoRepository.create({
             titulo: titulo.trim(),
             descricao: descricao.trim(),
             tecnologias: parseTecnologias(tecnologias),
             githubUrl: parseUrl(githubUrl),
             demoUrl: parseUrl(demoUrl),
+            tipo: tipo || null,
+            papel: papel ? papel.trim() : null,
+            status: status || null,
         });
     }
 
-    static async update(id, { titulo, descricao, tecnologias, githubUrl, demoUrl }) {
+    static async update(id, { titulo, descricao, tecnologias, githubUrl, demoUrl, tipo, papel, status }) {
         const projeto = await ProjetoRepository.findById(id);
         if (!projeto) throw new Error('Projeto não encontrado');
 
@@ -40,6 +43,9 @@ class ProjetoService {
             tecnologias: tecnologias !== undefined ? parseTecnologias(tecnologias) : projeto.tecnologias,
             githubUrl: parseUrl(githubUrl),
             demoUrl: parseUrl(demoUrl),
+            tipo: tipo !== undefined ? (tipo || null) : projeto.tipo,
+            papel: papel !== undefined ? (papel ? papel.trim() : null) : projeto.papel,
+            status: status !== undefined ? (status || null) : projeto.status,
         });
     }
 

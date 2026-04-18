@@ -23,10 +23,11 @@ class SobreMimService {
             tecnologias: record.tecnologias || [],
             experiencias: record.experiencias || [],
             foto: record.foto ? record.foto.url : null,
+            curriculo: record.curriculo ? record.curriculo.url : null,
         };
     }
 
-    static async upsert({ resumo, cargo, empresa, formacao, universidade, previsaoFormatura, tecnologias, experiencias, filename }) {
+    static async upsert({ resumo, cargo, empresa, formacao, universidade, previsaoFormatura, tecnologias, experiencias, filename, curriculoFilename }) {
         const existing = await SobreMimRepository.findFirst();
 
         let foto = existing ? existing.foto : null;
@@ -35,6 +36,14 @@ class SobreMimService {
                 deleteFile(existing.foto.url);
             }
             foto = { url: '/uploads/' + filename };
+        }
+
+        let curriculo = existing ? existing.curriculo : null;
+        if (curriculoFilename) {
+            if (existing && existing.curriculo) {
+                deleteFile(existing.curriculo.url);
+            }
+            curriculo = { url: '/uploads/' + curriculoFilename };
         }
 
         let techs = tecnologias;
@@ -61,6 +70,7 @@ class SobreMimService {
             tecnologias: techs || [],
             experiencias: exps || [],
             foto,
+            curriculo,
         });
     }
 }

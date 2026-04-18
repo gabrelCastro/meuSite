@@ -41,6 +41,19 @@
             </div>
 
             <div class="campo">
+                <label for="serie">Série <span class="hint">(opcional)</span></label>
+                <input type="text" id="serie" name="serie" class="input"
+                    value="<%=video.serie || ''%>" placeholder="Ex: Java na prática">
+            </div>
+
+            <div class="campo">
+                <label for="tags">Tags <span class="hint">(opcional)</span></label>
+                <input type="text" id="tags" name="tags" class="input"
+                    value="<%=(video.tags || []).join(', ')%>">
+                <span class="hint">Separe com vírgula</span>
+            </div>
+
+            <div class="campo">
                 <label for="corpo">Conteúdo adicional <span class="hint">(opcional)</span></label>
                 <textarea name="corpo" id="corpo"><%- video.corpo || '' %></textarea>
             </div>

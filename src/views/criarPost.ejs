@@ -22,7 +22,25 @@
             </div>
 
             <div class="campo">
-                <label for="imageInput">Imagem de capa</label>
+                <label for="descricao">Descrição curta <span class="hint">(opcional)</span></label>
+                <input type="text" id="descricao" name="descricao" class="input"
+                    placeholder="Resumo de uma linha" maxlength="500">
+            </div>
+
+            <div class="campo">
+                <label for="tags">Tags <span class="hint">(opcional)</span></label>
+                <input type="text" id="tags" name="tags" class="input"
+                    placeholder="java, spring, arquitetura">
+                <span class="hint">Separe com vírgula</span>
+            </div>
+
+            <div class="campo" style="display:flex;align-items:center;gap:10px">
+                <input type="checkbox" id="pinned" name="pinned" value="on" style="width:16px;height:16px;accent-color:#818CF8">
+                <label for="pinned" style="margin:0">Fixar este post no topo do blog</label>
+            </div>
+
+            <div class="campo">
+                <label for="imageInput">Imagem de capa <span class="hint">(opcional)</span></label>
                 <input name="imagem" type="file" accept="image/*" id="imageInput" class="input-file">
             </div>
 

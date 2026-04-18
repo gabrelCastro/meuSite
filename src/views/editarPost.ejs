@@ -22,6 +22,25 @@
             </div>
 
             <div class="campo">
+                <label for="descricao">Descrição curta <span class="hint">(opcional)</span></label>
+                <input type="text" id="descricao" name="descricao" class="input"
+                    value="<%=post.descricao || ''%>" maxlength="500">
+            </div>
+
+            <div class="campo">
+                <label for="tags">Tags <span class="hint">(opcional)</span></label>
+                <input type="text" id="tags" name="tags" class="input"
+                    value="<%=(post.tags || []).join(', ')%>">
+                <span class="hint">Separe com vírgula</span>
+            </div>
+
+            <div class="campo" style="display:flex;align-items:center;gap:10px">
+                <input type="checkbox" id="pinned" name="pinned" value="on"
+                    <%=post.pinned ? 'checked' : ''%> style="width:16px;height:16px;accent-color:#818CF8">
+                <label for="pinned" style="margin:0">Fixar este post no topo do blog</label>
+            </div>
+
+            <div class="campo">
                 <label for="imageInput">Imagem de capa <span class="hint">(deixe vazio para manter a atual)</span></label>
                 <% if (post.img) { %>
                     <img src="<%= post.img %>" alt="Capa atual" style="max-width: 280px; max-height: 160px; border-radius: 8px; border: 1px solid #2D3748; margin-bottom: 8px; display: block;">

@@ -33,6 +33,33 @@
             </div>
 
             <div class="campo">
+                <label for="tipo">Tipo <span class="hint">(opcional)</span></label>
+                <select id="tipo" name="tipo" class="input">
+                    <option value="">— selecione —</option>
+                    <option value="profissional" <%=projeto.tipo==='profissional'?'selected':''%>>Profissional</option>
+                    <option value="academico" <%=projeto.tipo==='academico'?'selected':''%>>Acadêmico</option>
+                    <option value="pessoal" <%=projeto.tipo==='pessoal'?'selected':''%>>Pessoal</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="papel">Papel / Função <span class="hint">(opcional)</span></label>
+                <input type="text" id="papel" name="papel" class="input"
+                    value="<%=projeto.papel || ''%>"
+                    placeholder="Ex: back-end, full-stack, dados">
+            </div>
+
+            <div class="campo">
+                <label for="status">Status <span class="hint">(opcional)</span></label>
+                <select id="status" name="status" class="input">
+                    <option value="">— selecione —</option>
+                    <option value="live" <%=projeto.status==='live'?'selected':''%>>Live / Em produção</option>
+                    <option value="wip" <%=projeto.status==='wip'?'selected':''%>>Work in progress</option>
+                    <option value="archived" <%=projeto.status==='archived'?'selected':''%>>Arquivado / Entregue</option>
+                </select>
+            </div>
+
+            <div class="campo">
                 <label for="githubUrl">Link GitHub <span class="hint">(opcional)</span></label>
                 <input type="url" id="githubUrl" name="githubUrl" class="input" value="<%= projeto.githubUrl || '' %>">
             </div>

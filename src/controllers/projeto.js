@@ -37,6 +37,9 @@ class ProjetoController {
                 tecnologias: req.body.tecnologias,
                 githubUrl: req.body.githubUrl,
                 demoUrl: req.body.demoUrl,
+                tipo: req.body.tipo,
+                papel: req.body.papel,
+                status: req.body.status,
             });
             res.status(201).json({ message: 'Projeto criado com sucesso!', projeto });
         } catch (err) {
@@ -52,6 +55,9 @@ class ProjetoController {
                 tecnologias: req.body.tecnologias,
                 githubUrl: req.body.githubUrl,
                 demoUrl: req.body.demoUrl,
+                tipo: req.body.tipo,
+                papel: req.body.papel,
+                status: req.body.status,
             });
             res.status(200).json({ message: 'Projeto atualizado com sucesso!', projeto });
         } catch (err) {

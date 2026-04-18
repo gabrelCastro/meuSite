@@ -15,6 +15,8 @@ class VideoController {
             const video = await VideoService.create({
                 titulo: req.body.titulo,
                 descricao: req.body.descricao,
+                tags: req.body.tags,
+                serie: req.body.serie,
                 url: req.body.conteudo,
                 corpo: req.body.corpo,
                 filename: req.file.filename,
@@ -79,6 +81,8 @@ class VideoController {
             const video = await VideoService.update(req.params.id, {
                 titulo: req.body.titulo,
                 descricao: req.body.descricao,
+                tags: req.body.tags,
+                serie: req.body.serie,
                 url: req.body.conteudo,
                 corpo: req.body.corpo,
                 filename: req.file ? req.file.filename : null,

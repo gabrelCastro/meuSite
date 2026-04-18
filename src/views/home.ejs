@@ -1,204 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
-    <title>Home</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gabrel.tech — Gabriel Ferreira de Castro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<script src="/js/tweaks-default.js"></script>
 </head>
 <body>
-    <header class="cabecalho">
-        <canvas id="particles"></canvas>
-        <h1 class = "meu_Nome">Gabriel_Ferreira<br>de_Castro</h1>
 
-        <nav>
-            <a href="/home" class="linksNav">home</a>
-            <a href="/blog" class="linksNav">meu_blog</a>
-            <a href="/videos" class="linksNav">videos</a>
-            <a href="/portfolio" class="linksNav">portfólio</a>
-        </nav>
-        <div class="gl">
-            <div class="publi">
-                <a href="https://github.com/gabrelCastro">
-                <img class ="logos" src="/img/pngegg.png" alt="github"></a>
-                <a href="https://github.com/gabrelCastro" class = "Links">meu github</a>
-            </div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/home" class="brand" aria-label="gabrel.tech">
+      <span class="dot" aria-hidden="true"></span>
+      <span>gabrel<span class="slash">.</span>tech</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/home" aria-current="page">home</a>
+      <a href="/blog">blog</a>
+      <a href="/videos">vídeos</a>
+      <a href="/portfolio">portfólio</a>
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (T)">
+        <svg class="ico" viewBox="0 0 24 24" id="theme-icon">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
 
-            <div class="publi">
-                <a href="https://www.linkedin.com/in/gabriel-ferreira-30a855217/">
-                <img class ="logos" src="/img/linkedin.png" alt="github"></a>
-                <a href="https://www.linkedin.com/in/gabriel-ferreira-30a855217/" class = "Links">meu linkedin</a>
-            </div>
-        </div>
+<main class="page">
 
-        <h1 class="fraseIconica">Exploring The World Thought the code;</h1>
-
-    </header>
-
-    <!-- ══ SOBRE MIM ══════════════════════════════════ -->
-    <% if (sobre) { %>
-    <section class="about">
-
-        <!-- ROW 1: Hero (split assimétrico) + Educação ao lado -->
-        <div class="about__row about__row--top">
-
-            <div class="about__hero reveal">
-                <div class="about__photo-wrapper">
-                    <div class="about__photo-halo"></div>
-                    <div class="about__photo-frame">
-                        <img class="about__photo" src="<%= sobre.foto || '/img/minha foto.jpeg.jpg' %>" alt="Foto de perfil">
-                    </div>
-                    <span class="about__photo-deco about__photo-deco--tl"></span>
-                    <span class="about__photo-deco about__photo-deco--br"></span>
-                </div>
-                <div class="about__intro">
-                    <span class="about__kicker">// sobre_mim</span>
-                    <h2 class="about__title">Desenvolvedor<span class="cursor">_</span></h2>
-                    <div class="about__badge">
-                        <span class="about__badge-dot"></span>
-                        <%= sobre.cargo %> @ <%= sobre.empresa %>
-                    </div>
-                    <p class="about__resumo" id="sobreMim"></p>
-                </div>
-            </div>
-
-            <aside class="about__edu-card reveal">
-                <div class="about__edu-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>
-                    </svg>
-                    <span>formação_</span>
-                </div>
-                <h4 class="about__edu-course"><%= sobre.formacao %></h4>
-                <p class="about__edu-uni"><%= sobre.universidade %></p>
-                <% if (sobre.previsaoFormatura) { %>
-                    <div class="about__edu-meta">
-                        <span class="about__edu-meta-label">conclusão</span>
-                        <span class="about__edu-meta-value"><%= sobre.previsaoFormatura %></span>
-                    </div>
-                <% } %>
-            </aside>
-
-        </div>
-
-        <!-- ROW 2: Tech strip (faixa horizontal) -->
-        <% if (sobre.tecnologias && sobre.tecnologias.length > 0) { %>
-        <div class="about__tech-strip reveal">
-            <div class="about__tech-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-                </svg>
-                tech_stack
-            </div>
-            <div class="about__techs">
-                <% sobre.tecnologias.forEach(function(tech) { %>
-                    <span class="about__tech-pill"><%= tech %></span>
-                <% }); %>
-            </div>
-        </div>
+  <section class="hero" aria-labelledby="hero-name">
+    <div>
+      <div class="meta-line">
+        <% if (sobre && sobre.cargo && sobre.empresa) { %>
+          <span class="tag"><span class="live"></span><%=sobre.cargo%> · <%= sobre.empresa.split(' - ')[0] %></span>
+        <% } else { %>
+          <span class="tag"><span class="live"></span>desenvolvedor de software</span>
         <% } %>
-
-        <!-- ROW 3: Timeline (full width) -->
-        <% if (sobre.experiencias && sobre.experiencias.length > 0) { %>
-        <div class="about__timeline-wrap reveal">
-            <h3 class="about__section-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-                trajetória_
-            </h3>
-            <div class="timeline">
-                <% sobre.experiencias.forEach(function(exp, i) { %>
-                    <div class="timeline__item reveal" style="--delay: <%= i * 0.1 %>s">
-                        <div class="timeline__marker">
-                            <span class="timeline__dot<%= i === 0 ? ' timeline__dot--active' : '' %>"></span>
-                            <% if (i < sobre.experiencias.length - 1) { %>
-                                <span class="timeline__line"></span>
-                            <% } %>
-                        </div>
-                        <div class="timeline__content">
-                            <div class="timeline__header">
-                                <strong class="timeline__role"><%= exp.cargo %></strong>
-                                <span class="timeline__period"><%= exp.periodo %></span>
-                            </div>
-                            <span class="timeline__company"><%= exp.empresa %></span>
-                            <% if (exp.descricao) { %>
-                                <p class="timeline__desc"><%= exp.descricao %></p>
-                            <% } %>
-                        </div>
-                    </div>
-                <% }); %>
-            </div>
-        </div>
+        <span>· lavras, mg · brasil</span>
+      </div>
+      <h1 class="name" id="hero-name">
+        Gabriel<span class="u">_</span>Ferreira<br/>
+        de<span class="u">_</span>Castro<span class="caret" aria-hidden="true"></span>
+      </h1>
+      <p class="tagline">
+        Estudante de <em>Ciência da Computação</em> na UFLA e estagiário de desenvolvimento back-end
+        na <em>Equals</em>, migrando um monólito Java de ESB para microsserviços.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:ferreiragabriel589@gmail.com">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 7l9 6 9-6M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z"/></svg>
+          entrar em contato
+        </a>
+        <a class="btn ghost" href="https://github.com/gabrelCastro" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.5 5 .4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+          github
+          <span class="arrow">↗</span>
+        </a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/gabriel-ferreira-30a855217/" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-7"/></svg>
+          linkedin
+          <span class="arrow">↗</span>
+        </a>
+        <% if (sobre && sobre.curriculo) { %>
+        <a class="btn ghost" href="<%= sobre.curriculo %>" download>
+          <svg class="ico" viewBox="0 0 24 24"><path d="M12 3v13M8 12l4 4 4-4M4 19h16"/></svg>
+          currículo
+        </a>
         <% } %>
-
-    </section>
-    <% } else { %>
-    <!-- Fallback quando não há dados cadastrados -->
-    <div class="sobreMim reveal">
-        <h1 class="titutoAbout">Sobre mim</h1>
-        <div class="fotoTexto">
-            <p class="texto" id="sobreMim"></p>
-            <div class="circuloImagem">
-                <img class="minhaFoto" src="/img/minha foto.jpeg.jpg" alt="">
-            </div>
-        </div>
+      </div>
     </div>
-    <% } %>
 
-    <section class="conheca reveal">
-        <h1 class="titutoAbout" id="conheca">Conheça_</h1>
-        <div class="conheca-grid">
-
-            <a href="/videos" class="conheca-card">
-                <div class="conheca-banner conheca-banner--video">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
-                    </svg>
-                </div>
-                <div class="conheca-body">
-                    <h3>Videos</h3>
-                    <p>Vídeos onde mostro e exercito didática em conteúdos que aprendi e achei interessante repassar.</p>
-                    <span class="conheca-cta">Assistir vídeos →</span>
-                </div>
-            </a>
-
-            <a href="/blog" class="conheca-card">
-                <div class="conheca-banner conheca-banner--blog">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                </div>
-                <div class="conheca-body">
-                    <h3>Meu Blog</h3>
-                    <p>Onde mostro o que estou aprendendo e o que já sei sobre programação e tecnologia.</p>
-                    <span class="conheca-cta">Ler posts →</span>
-                </div>
-            </a>
-
-            <a href="/portfolio" class="conheca-card">
-                <div class="conheca-banner conheca-banner--portfolio">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-                    </svg>
-                </div>
-                <div class="conheca-body">
-                    <h3>Portfólio</h3>
-                    <p>Projetos que desenvolvi, com tecnologias utilizadas e links para código e demo.</p>
-                    <span class="conheca-cta">Ver projetos →</span>
-                </div>
-            </a>
-
+    <div class="terminal" id="terminal">
+      <div class="term-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="title">~/gabrel — zsh — 80×24</div>
+        <div style="width:36px"></div>
+      </div>
+      <div class="term-body" id="term-body">
+        <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">whoami</span></div>
+        <div class="out reveal" data-wait="200">
+<span class="k">name:  </span><span class="v">Gabriel Ferreira de Castro</span>
+<span class="k">role:  </span><span class="v"><%- (sobre && sobre.cargo && sobre.empresa) ? sobre.cargo + ' @ ' + sobre.empresa : 'Software Engineer' %></span>
+<span class="k">edu:   </span><span class="v"><%- (sobre && sobre.formacao) ? sobre.formacao : 'Ciência da Computação' %></span><% if (sobre && sobre.previsaoFormatura) { %> <span class="muted">(fim: <%=sobre.previsaoFormatura%>)</span><% } %>
+<span class="k">loc:   </span><span class="v">Lavras, MG · BR</span>
+<span class="k">links: </span><span class="v">github.com/gabrelCastro</span> <span class="muted">·</span> <span class="v">linkedin.com/in/gabriel-ferreira</span>
         </div>
-    </section>
+        <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">ls --help</span><span class="caret" aria-hidden="true"></span></div>
+      </div>
+      <div class="term-hint" role="toolbar" aria-label="comandos">
+        <button class="chip" data-goto="about"><span class="k">01</span>./sobre</button>
+        <button class="chip" data-goto="stack"><span class="k">02</span>./stack</button>
+        <button class="chip" data-goto="work"><span class="k">03</span>./trajetoria</button>
+        <button class="chip" data-goto="explore"><span class="k">04</span>./conheça</button>
+        <button class="chip" data-goto="contact"><span class="k">05</span>./contato</button>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
-    </footer>
+  <section id="about">
+    <div class="sec-head">
+      <span class="num">01<span style="color:var(--fg-4)">/</span></span>
+      <h2>sobre<span class="u">_</span>mim</h2>
+      <span class="rule"></span>
+      <span class="meta">// readme.md</span>
+    </div>
+    <div class="about">
+      <div class="avatar">
+        <% if (sobre && sobre.foto) { %>
+          <img src="<%= sobre.foto %>" alt="Gabriel Ferreira de Castro" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+        <% } else { %>
+          <span class="initials" aria-hidden="true">gf<small>_</small></span>
+        <% } %>
+      </div>
+      <div class="about-body">
+        <% if (sobre && sobre.resumo) { %>
+          <p><%- sobre.resumo %></p>
+        <% } else { %>
+          <p>Desenvolvedor back-end com foco em Java e ecossistema Spring.</p>
+        <% } %>
+
+        <dl class="kv-grid">
+          <% if (sobre && sobre.formacao) { %>
+          <div class="kv">
+            <dt>formação</dt>
+            <dd><%=sobre.formacao%> <span class="sub"><%=sobre.universidade || ''%><%- (sobre.previsaoFormatura) ? ' · conclusão em ' + sobre.previsaoFormatura : '' %></span></dd>
+          </div>
+          <% } %>
+          <% if (sobre && sobre.cargo && sobre.empresa) { %>
+          <div class="kv">
+            <dt>atual</dt>
+            <dd><%=sobre.cargo%> <span class="sub"><%=sobre.empresa%></span></dd>
+          </div>
+          <% } %>
+          <div class="kv">
+            <dt>base</dt>
+            <dd>Lavras, MG <span class="sub">remoto ou presencial</span></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <% if (sobre && sobre.tecnologias && sobre.tecnologias.length > 0) { %>
+  <section id="stack">
+    <div class="sec-head">
+      <span class="num">02<span style="color:var(--fg-4)">/</span></span>
+      <h2>tech<span class="u">_</span>stack</h2>
+      <span class="rule"></span>
+      <span class="meta">// package.json</span>
+    </div>
+    <div class="stack">
+      <% sobre.tecnologias.forEach(function(tech) { %>
+        <span class="pill"><%=tech%></span>
+      <% }); %>
+    </div>
+  </section>
+  <% } %>
+
+  <% if (sobre && sobre.experiencias && sobre.experiencias.length > 0) { %>
+  <section id="work">
+    <div class="sec-head">
+      <span class="num">03<span style="color:var(--fg-4)">/</span></span>
+      <h2>trajetória<span class="u">_</span></h2>
+      <span class="rule"></span>
+      <span class="meta">// git log</span>
+    </div>
+    <div class="timeline">
+      <% sobre.experiencias.forEach(function(exp, i) { %>
+      <article class="job">
+        <div class="when">
+          <%=exp.periodo%>
+          <% if (i === 0) { %><div class="now">● em andamento</div><% } %>
+        </div>
+        <div>
+          <h3 class="role"><%=exp.cargo%></h3>
+          <div class="at"><span class="bul">@</span><span class="co"><%=exp.empresa%></span></div>
+          <% if (exp.descricao) {
+            var lines = exp.descricao.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+            var bullets = lines.filter(function(l){ return l.startsWith('-') || l.startsWith('•'); });
+            var prose = lines.filter(function(l){ return !l.startsWith('-') && !l.startsWith('•'); });
+          %>
+            <% if (prose.length > 0) { %><p class="desc"><%= prose.join(' ') %></p><% } %>
+            <% if (bullets.length > 0) { %>
+            <ul>
+              <% bullets.forEach(function(b){ %><li><%= b.replace(/^[-•]\s*/, '') %></li><% }); %>
+            </ul>
+            <% } %>
+          <% } %>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+  </section>
+  <% } %>
+
+  <section id="explore">
+    <div class="sec-head">
+      <span class="num">04<span style="color:var(--fg-4)">/</span></span>
+      <h2>conheça<span class="u">_</span></h2>
+      <span class="rule"></span>
+      <span class="meta">// index.ts</span>
+    </div>
+    <div class="cards">
+      <a class="card" href="/portfolio">
+        <span class="k">// portfolio/</span>
+        <h3>Portfólio</h3>
+        <p>Projetos que desenvolvi, com tecnologias utilizadas e links para código e demo.</p>
+        <span class="go">ver projetos <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="/blog">
+        <span class="k">// blog/</span>
+        <h3>Blog</h3>
+        <p>Onde compartilho o que estou aprendendo sobre programação e tecnologia.</p>
+        <span class="go">ler posts <span class="arrow">→</span></span>
+      </a>
+      <a class="card" href="/videos">
+        <span class="k">// videos/</span>
+        <h3>Vídeos</h3>
+        <p>Didática em conteúdos que aprendi e achei interessante repassar em vídeo.</p>
+        <span class="go">assistir <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-cta">
+    <div>
+      <div class="lead">// contact.sh</div>
+      <h3>vamos trocar uma ideia.</h3>
+      <p>
+        Curto conversar sobre back-end, arquitetura, Java e o que ando estudando.
+        Se quiser comentar alguma coisa, tirar dúvida ou só bater papo técnico, me manda mensagem.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="mailto:ferreiragabriel589@gmail.com">ferreiragabriel589@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/gabriel-ferreira-30a855217/" target="_blank" rel="noopener">
+        linkedin <span class="arrow">↗</span>
+      </a>
+      <a class="btn ghost" href="https://github.com/gabrelCastro" target="_blank" rel="noopener">
+        github <span class="arrow">↗</span>
+      </a>
+      <% if (sobre && sobre.curriculo) { %>
+      <a class="btn ghost" href="<%= sobre.curriculo %>" download>
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 3v13M8 12l4 4 4-4M4 19h16"/></svg>
+        currículo
+      </a>
+      <% } %>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="left"><span>© 2025 Gabriel Ferreira de Castro</span></div>
+    <div><span class="kbd">T</span> tema</div>
+  </footer>
+
+</main>
 
 
-    <script src="/js/script.js"<% if (sobre) { %> data-resumo="<%= sobre.resumo.replace(/"/g, '&quot;') %>"<% } %>></script>
-    <script src="/js/particles.js"></script>
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<script src="/js/site.js"></script>
 </body>
 </html>

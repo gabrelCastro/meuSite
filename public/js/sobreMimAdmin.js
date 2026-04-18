@@ -94,6 +94,11 @@ document.getElementById('sobreMimForm').addEventListener('submit', async functio
         formData.append('foto', fotoInput.files[0]);
     }
 
+    var curriculoInput = document.getElementById('curriculoInput');
+    if (curriculoInput && curriculoInput.files[0]) {
+        formData.append('curriculo', curriculoInput.files[0]);
+    }
+
     try {
         var resp = await fetch('/sobreMim', {
             method: 'POST',

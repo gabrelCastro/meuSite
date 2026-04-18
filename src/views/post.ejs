@@ -1,54 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<%= post.titulo %>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/post.css">
-    <title><%= post.titulo %> — meu_blog</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="<%= post.titulo %>">
+<title><%= post.titulo %> — gabrel.tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/post-content.css" />
+<script src="/js/tweaks-default.js"></script>
 </head>
 <body>
 
-<header class="cabecalho">
-    <canvas id="particles"></canvas>
-    <a href="/home" class="brand">meu_blog</a>
-    <nav>
-        <a href="/home" class="linksNav">home</a>
-        <a href="/blog" class="linksNav">meu_blog</a>
-        <a href="/videos" class="linksNav">videos</a>
-        <a href="/portfolio" class="linksNav">portfólio</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/home" class="brand" aria-label="gabrel.tech">
+      <span class="dot" aria-hidden="true"></span>
+      <span>gabrel<span class="slash">.</span>tech</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/home">home</a>
+      <a href="/blog" aria-current="page">blog</a>
+      <a href="/videos">vídeos</a>
+      <a href="/portfolio">portfólio</a>
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (T)">
+        <svg class="ico" viewBox="0 0 24 24" id="theme-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
     </nav>
+  </div>
 </header>
 
-<div class="voltar-wrapper">
-    <a href="/blog" class="btn-voltar">← voltar ao blog</a>
-</div>
-
-<article class="post-article">
-    <header class="post-head">
-        <% if (post.createdAt) { %>
-            <time class="post-date" datetime="<%= new Date(post.createdAt).toISOString() %>">
-                <%= new Date(post.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) %>
-            </time>
-        <% } %>
-        <h1 class="tituloPost"><%= post.titulo %></h1>
-    </header>
-
-    <% if (post.img) { %>
-        <figure class="post-cover">
-            <img src="<%= post.img %>" alt="Capa do post" loading="eager">
-        </figure>
-    <% } %>
-
-    <div class="post-content">
-        <%- post.conteudo %>
+<main class="page">
+  <div class="page-head">
+    <div class="crumb">
+      <a href="/home">~</a><span class="sep">/</span><a href="/blog">blog</a><span class="sep">/</span><span>post</span>
     </div>
-</article>
+    <% if (post.createdAt) { %>
+      <time class="post-date" datetime="<%= new Date(post.createdAt).toISOString() %>">
+        <%= new Date(post.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) %>
+      </time>
+    <% } %>
+    <h1 class="post-title"><%= post.titulo %></h1>
+    <% if (post.descricao) { %>
+      <p class="sub"><%= post.descricao %></p>
+    <% } %>
+  </div>
 
-<footer>
-    <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
-</footer>
-<script src="/js/particles.js"></script>
+  <% if (post.img) { %>
+  <div class="post-cover-wrap">
+    <img class="post-cover" src="<%= post.img %>" alt="Capa do post">
+  </div>
+  <% } %>
+
+  <article class="post-body prose">
+    <%- post.conteudo %>
+  </article>
+
+  <div style="margin-top:48px;padding-bottom:16px">
+    <a href="/blog" style="color:var(--fg-3);font-size:0.875rem;font-family:var(--mono)">← voltar ao blog</a>
+  </div>
+
+  <footer class="foot">
+    <div class="left"><span>© 2025 Gabriel Ferreira de Castro</span></div>
+    <div><span class="kbd">T</span> tema</div>
+  </footer>
+</main>
+
+
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<script src="/js/site.js"></script>
 </body>
 </html>

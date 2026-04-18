@@ -139,6 +139,18 @@
                 <input name="foto" type="file" accept="image/*" id="fotoInput" class="input-file">
             </div>
 
+            <!-- Currículo -->
+            <div class="campo">
+                <label for="curriculoInput">Currículo (PDF)</label>
+                <% if (sobre && sobre.curriculo) { %>
+                    <p style="margin:4px 0 8px;font-size:0.85rem;color:#A0AEC0;">
+                        Atual: <a href="<%= sobre.curriculo %>" target="_blank" style="color:#818CF8">ver currículo ↗</a>
+                    </p>
+                <% } %>
+                <input name="curriculo" type="file" accept="application/pdf" id="curriculoInput" class="input-file">
+                <span class="hint">Deixe vazio para manter o atual</span>
+            </div>
+
             <!-- Resumo -->
             <div class="campo">
                 <label for="resumo">Resumo pessoal <span class="hint">(aparece com efeito typewriter)</span></label>

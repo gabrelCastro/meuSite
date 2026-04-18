@@ -13,13 +13,27 @@ const Post = database.define('post', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    descricao: {
+        type: Sequelize.STRING(500),
+        allowNull: true
+    },
+    tags: {
+        type: Sequelize.JSON,
+        allowNull: true,
+        defaultValue: []
+    },
+    pinned: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
     conteudo:{
         type: Sequelize.TEXT,
         allowNull: false
     },
     img:{
         type: Sequelize.JSON,
-        allowNull: false
+        allowNull: true
     }
     });
 

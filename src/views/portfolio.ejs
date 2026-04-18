@@ -1,68 +1,118 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/portfolio.css">
-    <title>portfólio</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>portfólio — gabrel.tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<script src="/js/tweaks-default.js"></script>
 </head>
 <body>
-    <header class="cabecalho">
-        <canvas id="particles"></canvas>
-        <h1 class="page-title">portfólio</h1>
-        <nav>
-            <a href="/home" class="linksNav">home</a>
-            <a href="/blog" class="linksNav">meu_blog</a>
-            <a href="/videos" class="linksNav">videos</a>
-            <a href="/portfolio" class="linksNav">portfólio</a>
-        </nav>
-    </header>
 
-    <div class="projetos-lista">
-        <% if (projetos.length === 0) { %>
-            <p class="empty-state">Nenhum projeto cadastrado ainda.</p>
-        <% } %>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/home" class="brand" aria-label="gabrel.tech">
+      <span class="dot" aria-hidden="true"></span>
+      <span>gabrel<span class="slash">.</span>tech</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/home">home</a>
+      <a href="/blog">blog</a>
+      <a href="/videos">vídeos</a>
+      <a href="/portfolio" aria-current="page">portfólio</a>
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (T)">
+        <svg class="ico" viewBox="0 0 24 24" id="theme-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
 
-        <% projetos.forEach(function(projeto, i) { %>
-            <div class="projeto-card">
-                <div class="projeto-banner grad-<%= i % 4 %>">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-                    </svg>
-                </div>
-                <div class="projeto-info">
-                    <h2 class="projeto-titulo"><%= projeto.titulo %></h2>
-                    <p class="projeto-descricao"><%= projeto.descricao %></p>
-
-                    <% if (projeto.tecnologias && projeto.tecnologias.length > 0) { %>
-                        <div class="projeto-techs">
-                            <% projeto.tecnologias.forEach(function(tech) { %>
-                                <span class="tech-badge"><%= tech %></span>
-                            <% }) %>
-                        </div>
-                    <% } %>
-
-                    <div class="projeto-links">
-                        <% if (projeto.githubUrl) { %>
-                            <a href="<%= projeto.githubUrl %>" target="_blank" rel="noopener" class="projeto-link">
-                                GitHub ↗
-                            </a>
-                        <% } %>
-                        <% if (projeto.demoUrl) { %>
-                            <a href="<%= projeto.demoUrl %>" target="_blank" rel="noopener" class="projeto-link">
-                                Demo ↗
-                            </a>
-                        <% } %>
-                    </div>
-                </div>
-            </div>
-        <% }) %>
+<main class="page">
+  <div class="page-head">
+    <div class="crumb"><a href="/home">~</a><span class="sep">/</span><span>portfólio</span></div>
+    <h1>portfólio<span class="u">_</span><span class="caret" aria-hidden="true"></span></h1>
+    <p class="sub">Projetos que desenvolvi — com tecnologias utilizadas e links para código e demo.</p>
+    <div class="stats">
+      <span><b><%= projetos.length %></b> projetos</span>
     </div>
+  </div>
 
-    <footer>
-        <p class="copyright">2025 | GABRIEL FERREIRA DE CASTRO</p>
-    </footer>
-    <script src="/js/particles.js"></script>
+  <%
+    const tipoLabels = { profissional: 'profissional', academico: 'acadêmico', pessoal: 'pessoal' };
+    const statusLabels = { live: 'em produção', wip: 'work in progress', archived: 'entregue' };
+    const allTipos = [...new Set(projetos.map(function(p){ return p.tipo; }).filter(Boolean))].sort();
+  %>
+
+  <div class="filters" id="filters">
+    <span class="lbl">// filter:</span>
+    <button class="chip on" data-tag="all">tudo</button>
+    <% allTipos.forEach(function(tipo) { %>
+      <button class="chip" data-tag="<%=tipo%>"><%=tipoLabels[tipo]||tipo%></button>
+    <% }); %>
+  </div>
+
+  <div class="projects" id="projgrid">
+    <% if (!projetos || projetos.length === 0) { %>
+      <p style="color:var(--fg-3);padding:48px 0;text-align:center;grid-column:1/-1">Nenhum projeto cadastrado ainda.</p>
+    <% } else { %>
+      <% projetos.forEach(function(projeto, i) { %>
+      <article class="project" data-tags="<%= [projeto.tipo, projeto.papel].filter(Boolean).join(' ') %>">
+        <div class="head">
+          <span class="num">PROJECT_<%- String(i+1).padStart(2,'0') %></span>
+          <% if (projeto.status) { %>
+            <span class="status <%= projeto.status %>"><%= statusLabels[projeto.status] || projeto.status %></span>
+          <% } %>
+        </div>
+        <h3><%= projeto.titulo %></h3>
+        <% if (projeto.papel) { %><p class="role"><%= projeto.papel %></p><% } %>
+        <p><%= projeto.descricao %></p>
+        <% if (projeto.tecnologias && projeto.tecnologias.length > 0) { %>
+        <div class="tech">
+          <% projeto.tecnologias.forEach(function(t) { %>
+            <span class="t"><%= t %></span>
+          <% }); %>
+        </div>
+        <% } %>
+        <div class="links">
+          <% if (projeto.githubUrl) { %>
+            <a href="<%= projeto.githubUrl %>" target="_blank" rel="noopener">github ↗</a>
+          <% } %>
+          <% if (projeto.demoUrl) { %>
+            <a href="<%= projeto.demoUrl %>" target="_blank" rel="noopener">demo ↗</a>
+          <% } %>
+          <% if (!projeto.githubUrl && !projeto.demoUrl) { %>
+            <span class="muted">código privado</span>
+          <% } %>
+        </div>
+      </article>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <section class="contact-cta" style="margin-top:56px">
+    <div>
+      <div class="lead">// more.sh</div>
+      <h3>tem um projeto em mente?</h3>
+      <p>Se tem uma ideia pra construir junto, ou quer saber mais detalhes de qualquer um desses, me chama.</p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="mailto:ferreiragabriel589@gmail.com">ferreiragabriel589@gmail.com</a>
+      <a class="btn" href="https://github.com/gabrelCastro" target="_blank" rel="noopener">github <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="left"><span>© 2025 Gabriel Ferreira de Castro</span></div>
+    <div><span class="kbd">T</span> tema</div>
+  </footer>
+</main>
+
+
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<script src="/js/site.js"></script>
+<script src="/js/portfolio-filter.js"></script>
 </body>
 </html>

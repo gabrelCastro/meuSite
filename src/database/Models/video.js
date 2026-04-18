@@ -17,6 +17,15 @@ const Video = database.define('video', {
         type: Sequelize.STRING(500),
         allowNull: true
     },
+    tags: {
+        type: Sequelize.JSON,
+        allowNull: true,
+        defaultValue: []
+    },
+    serie: {
+        type: Sequelize.STRING(200),
+        allowNull: true
+    },
     conteudo:{
         type: Sequelize.TEXT,
         allowNull: false

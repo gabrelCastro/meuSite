@@ -14,8 +14,11 @@ class PostController {
             }
             const post = await PostService.create({
                 titulo: req.body.titulo,
+                descricao: req.body.descricao,
+                tags: req.body.tags,
+                pinned: req.body.pinned,
                 conteudo: req.body.conteudo,
-                filename: req.file.filename,
+                filename: req.file ? req.file.filename : null,
             });
             if (wantsJson(req)) return res.status(201).json({ message: 'Criado com sucesso!', post });
             return res.redirect('/postAdmin');
@@ -76,6 +79,9 @@ class PostController {
         try {
             const post = await PostService.update(req.params.id, {
                 titulo: req.body.titulo,
+                descricao: req.body.descricao,
+                tags: req.body.tags,
+                pinned: req.body.pinned,
                 conteudo: req.body.conteudo,
                 filename: req.file ? req.file.filename : null,
             });

@@ -22,13 +22,22 @@ const sanitizeOpts = {
     },
 };
 
+function parseTags(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw;
+    return raw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+}
+
 function toPlainObject(post) {
     const img = typeof post.img === 'string' ? post.img : (post.img && post.img.url) || '';
     return {
         id: post.id,
         titulo: post.titulo,
+        descricao: post.descricao || null,
+        tags: post.tags || [],
+        pinned: post.pinned || false,
         conteudo: post.conteudo,
-        img,
+        img: img || null,
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
     };
@@ -52,16 +61,19 @@ class PostService {
         return post ? toPlainObject(post) : null;
     }
 
-    static async create({ titulo, conteudo, filename }) {
+    static async create({ titulo, descricao, tags, pinned, conteudo, filename }) {
         const post = await PostRepository.create({
             titulo: titulo.trim(),
+            descricao: descricao ? descricao.trim() : null,
+            tags: parseTags(tags),
+            pinned: pinned === true || pinned === 'on' || pinned === '1',
             conteudo: sanitizeHtml(conteudo, sanitizeOpts),
-            img: { url: '/uploads/' + filename },
+            img: filename ? { url: '/uploads/' + filename } : null,
         });
         return toPlainObject(post);
     }
 
-    static async update(id, { titulo, conteudo, filename }) {
+    static async update(id, { titulo, descricao, tags, pinned, conteudo, filename }) {
         const post = await PostRepository.findById(id);
         if (!post) throw new Error('Post não encontrado');
 
@@ -73,6 +85,9 @@ class PostService {
 
         const updated = await PostRepository.update(post, {
             titulo: titulo ? titulo.trim() : post.titulo,
+            descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : post.descricao,
+            tags: tags !== undefined ? parseTags(tags) : post.tags,
+            pinned: pinned !== undefined ? (pinned === true || pinned === 'on' || pinned === '1') : post.pinned,
             conteudo: conteudo ? sanitizeHtml(conteudo, sanitizeOpts) : post.conteudo,
             img,
         });

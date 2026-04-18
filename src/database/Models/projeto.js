@@ -30,6 +30,18 @@ const Projeto = database.define('projeto', {
         type: Sequelize.STRING,
         allowNull: true,
     },
+    tipo: {
+        type: Sequelize.STRING(50),
+        allowNull: true,
+    },
+    papel: {
+        type: Sequelize.STRING(200),
+        allowNull: true,
+    },
+    status: {
+        type: Sequelize.STRING(50),
+        allowNull: true,
+    },
 });
 
 module.exports = Projeto;
