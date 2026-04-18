@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/responsive.css" />
 <script src="/js/tweaks-default.js"></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
       <span class="dot" aria-hidden="true"></span>
       <span>gabrel<span class="slash">.</span>tech</span>
     </a>
-    <nav class="nav" aria-label="Principal">
+    <nav class="nav" id="main-nav" aria-label="Principal">
       <a href="/home">home</a>
       <a href="/blog">blog</a>
       <a href="/videos" aria-current="page">vídeos</a>
@@ -27,6 +28,9 @@
         <svg class="ico" viewBox="0 0 24 24" id="theme-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
       </button>
     </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="bar"><span></span><span></span><span></span></span>
+    </button>
   </div>
 </header>
 
@@ -106,5 +110,6 @@
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <script src="/js/site.js"></script>
 <script src="/js/videos-filter.js"></script>
+<script src="/js/nav-mobile.js"></script>
 </body>
 </html>

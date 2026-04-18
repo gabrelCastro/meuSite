@@ -143,8 +143,10 @@
 
 .prose img {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
   border: 1px solid var(--line);
+  display: block;
 }
 
 .prose table {
@@ -152,6 +154,8 @@
   border-collapse: collapse;
   margin: 1.4em 0;
   font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
 }
 
 .prose th, .prose td {
@@ -164,4 +168,18 @@
   background: var(--bg-1);
   color: var(--fg);
   font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .post-cover-wrap,
+  .video-embed-wrap,
+  .post-body { padding-left: 16px; padding-right: 16px; }
+
+  .prose { font-size: 0.95rem; }
+  .prose pre { font-size: 0.78rem; padding: 12px 14px; }
+  .prose h1 { font-size: 1.3rem; }
+  .prose h2 { font-size: 1.1rem; }
+  .prose h3 { font-size: 1rem; }
+  .prose blockquote { padding-left: 12px; }
+  .prose ul, .prose ol { padding-left: 1.2em; }
 }

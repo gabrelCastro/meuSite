@@ -86,6 +86,7 @@
     position: sticky;
     top: 0;
     z-index: 40;
+    isolation: isolate;
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: saturate(140%) blur(10px);
     -webkit-backdrop-filter: saturate(140%) blur(10px);
@@ -137,6 +138,69 @@
   .nav a[aria-current="page"] { color: var(--fg); }
   .nav a[aria-current="page"]::before { content: "·"; color: var(--accent); margin-right: 4px; }
 
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    margin-left: auto;
+    padding: 6px 10px;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    color: var(--fg-2);
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 13px;
+    gap: 6px;
+    align-items: center;
+    transition: color .15s, border-color .15s;
+  }
+  .nav-toggle:hover { color: var(--fg); border-color: var(--fg-4); }
+  .nav-toggle .bar {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .nav-toggle .bar span {
+    display: block; width: 16px; height: 1.5px;
+    background: currentColor;
+    transition: transform .2s, opacity .2s;
+    transform-origin: center;
+  }
+  .nav-toggle.active .bar span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .nav-toggle.active .bar span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active .bar span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  @media (max-width: 640px) {
+    .nav-toggle { display: inline-flex; }
+
+    .nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      background: var(--bg-1);
+      border-bottom: 1px solid var(--line);
+      padding: 8px 16px 16px;
+      gap: 2px;
+      z-index: 39;
+      box-shadow: 0 8px 24px -8px rgba(0,0,0,.4);
+    }
+    .nav.open { display: flex; }
+
+    .nav a, .nav button.icon-btn {
+      padding: 12px 10px;
+      border-radius: 8px;
+      font-size: 15px;
+      width: 100%;
+      justify-content: flex-start;
+    }
+    .nav button.icon-btn {
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+      padding-top: 14px;
+    }
+  }
+
   .kbd {
     font-family: var(--mono);
     font-size: 11px;
@@ -166,6 +230,7 @@
     text-transform: lowercase;
     margin-bottom: 18px;
     display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
   }
   .meta-line .tag {
     color: var(--fg-3);
@@ -779,7 +844,7 @@
 .filters .search input {
   background: transparent; border: 0; outline: none;
   font-family: var(--mono); font-size: 12px; color: var(--fg);
-  width: 160px;
+  width: clamp(80px, 20vw, 160px);
 }
 .filters .search input::placeholder { color: var(--fg-4); }
 
@@ -864,7 +929,7 @@
 /* ---------- Videos grid ---------- */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 20px;
 }
 .vcard {
@@ -1537,3 +1602,50 @@
   font-family: var(--mono); font-size: 11px; color: var(--fg-4);
 }
 
+
+/* =====================================================
+   MOBILE — extra-small breakpoint (≤ 480px)
+   ===================================================== */
+@media (max-width: 480px) {
+  /* Layout */
+  .page { padding: 0 16px 80px; }
+
+  /* Topbar */
+  .topbar-inner { padding: 10px 16px; gap: 10px; }
+  .nav { gap: 0; }
+  .nav a, .nav button.icon-btn { padding: 6px 7px; font-size: 13px; }
+
+  /* Hero */
+  .cta-row { flex-direction: column; align-items: flex-start; }
+  .cta-row .btn { width: 100%; justify-content: center; }
+
+  /* About */
+  .about { grid-template-columns: 1fr; }
+  .avatar { width: 80px; height: 80px; }
+  .kv-grid { grid-template-columns: 1fr; }
+
+  /* Tweaks modal */
+  .tweaks { width: 92vw; padding: 20px 18px 24px; }
+  .tweak-row { grid-template-columns: 1fr; gap: 8px; }
+
+  /* Blog post list */
+  .post { grid-template-columns: 1fr; gap: 4px; }
+  .post .date { font-size: 11px; }
+  .post:hover { padding-left: 4px; padding-right: 4px; }
+
+  /* Pinned */
+  .pinned { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Filters */
+  .filters .search { margin-left: 0; width: 100%; }
+  .filters .search input { width: 100%; }
+
+  /* Projects */
+  .projects { grid-template-columns: 1fr; }
+
+  /* Series strip */
+  .series-strip { grid-template-columns: 1fr; }
+
+  /* Page head */
+  .page-head h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+}
