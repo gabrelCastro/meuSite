@@ -1649,3 +1649,74 @@
   /* Page head */
   .page-head h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
 }
+
+/* ── Hamburger button: hidden on desktop ─────────────────── */
+:root .nav-toggle {
+  display: none;
+  margin-left: auto;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--fg-2);
+  background: transparent;
+  cursor: pointer;
+  align-items: center;
+  transition: color .15s, border-color .15s;
+}
+:root .nav-toggle:hover { color: var(--fg); border-color: var(--fg-4); }
+:root .nav-toggle .bar { display: flex; flex-direction: column; gap: 4px; }
+:root .nav-toggle .bar span {
+  display: block; width: 18px; height: 2px;
+  background: currentColor;
+  transition: transform .2s, opacity .2s;
+  transform-origin: center;
+}
+:root .nav-toggle.active .bar span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+:root .nav-toggle.active .bar span:nth-child(2) { opacity: 0; }
+:root .nav-toggle.active .bar span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 640px) {
+  :root .nav-toggle { display: inline-flex; }
+  :root .nav {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 16px 16px;
+    gap: 2px;
+    z-index: 39;
+    box-shadow: 0 8px 24px -8px rgba(0,0,0,.4);
+  }
+  :root .nav.open { display: flex; }
+  :root .nav a, :root .nav button.icon-btn {
+    padding: 12px 10px; border-radius: 8px; font-size: 15px;
+    width: 100%; justify-content: flex-start;
+  }
+  :root .nav button.icon-btn {
+    border-top: 1px solid var(--line); margin-top: 4px; padding-top: 14px;
+  }
+  :root .topbar-inner { padding: 10px 16px; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  :root .page { padding: 0 16px 80px; }
+  :root .cta-row { flex-direction: column; align-items: flex-start; }
+  :root .cta-row .btn { width: 100%; justify-content: center; }
+  :root .about { grid-template-columns: 1fr; }
+  :root .avatar { width: 80px; height: 80px; }
+  :root .kv-grid { grid-template-columns: 1fr; }
+  :root .post { grid-template-columns: 1fr; gap: 4px; }
+  :root .post .date { font-size: 11px; }
+  :root .post:hover { padding-left: 4px; padding-right: 4px; }
+  :root .pinned { grid-template-columns: 1fr; gap: 12px; }
+  :root .filters .search { margin-left: 0; width: 100%; }
+  :root .filters .search input { width: 100%; }
+  :root .projects { grid-template-columns: 1fr; }
+  :root .series-strip { grid-template-columns: 1fr; }
+  :root .page-head h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+  :root .tweaks { width: 92vw; padding: 20px 18px 24px; }
+  :root .tweak-row { grid-template-columns: 1fr; gap: 8px; }
+}

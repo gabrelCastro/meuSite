@@ -26,8 +26,8 @@ const routes = (app) => {
 // Define o diretório onde as views estão localizadas
     app.set('views', path.resolve('src','views')); 
 
-    app.use(express.static(path.resolve('public')));
-    app.use('/tinymce', express.static(path.resolve('node_modules', 'tinymce')));
+    app.use(express.static(path.resolve('public'), { maxAge: '7d' }));
+    app.use('/tinymce', express.static(path.resolve('node_modules', 'tinymce'), { maxAge: '30d' }));
 
     app.use(Video);
     app.use(Home);

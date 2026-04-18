@@ -195,18 +195,22 @@ document.documentElement.classList.add('js-on');
     }
 
     let prev = performance.now();
+    const TARGET_FPS = 30;
+    const FRAME_MS = 1000 / TARGET_FPS;
     function loop(now) {
-      const dt = Math.min(0.05, (now - prev)/1000);
-      prev = now;
+      raf = requestAnimationFrame(loop);
+      const elapsed = now - prev;
+      if (elapsed < FRAME_MS) return;
+      prev = now - (elapsed % FRAME_MS);
+      const dt = Math.min(0.05, elapsed / 1000);
       const t = now - t0;
       mouse.x += (mouse.tx - mouse.x) * 0.06;
       mouse.y += (mouse.ty - mouse.y) * 0.06;
-      if (mode === 'off') { raf = requestAnimationFrame(loop); return; }
+      if (mode === 'off') return;
       if (mode === 'grid') drawGrid();
       else if (mode === 'matrix') drawMatrix(dt);
       else if (mode === 'constellation') drawConstellation();
       else if (mode === 'ascii') drawAscii(t);
-      raf = requestAnimationFrame(loop);
     }
 
     function setMode(m) {
