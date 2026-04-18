@@ -86,15 +86,27 @@
         <div style="width:36px"></div>
       </div>
       <div class="term-body" id="term-body">
-        <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">whoami</span></div>
-        <div class="out reveal" data-wait="200">
-<span class="k">name:  </span><span class="v">Gabriel Ferreira de Castro</span>
-<span class="k">role:  </span><span class="v"><%- (sobre && sobre.cargo && sobre.empresa) ? sobre.cargo + ' @ ' + sobre.empresa : 'Software Engineer' %></span>
-<span class="k">edu:   </span><span class="v"><%- (sobre && sobre.formacao) ? sobre.formacao : 'Ciência da Computação' %></span><% if (sobre && sobre.previsaoFormatura) { %> <span class="muted">(fim: <%=sobre.previsaoFormatura%>)</span><% } %>
-<span class="k">loc:   </span><span class="v">Lavras, MG · BR</span>
-<span class="k">links: </span><span class="v">github.com/gabrelCastro</span> <span class="muted">·</span> <span class="v">linkedin.com/in/gabriel-ferreira</span>
+        <div class="term-line" style="animation-delay:0ms">
+          <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">whoami</span></div>
         </div>
-        <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">ls --help</span><span class="caret" aria-hidden="true"></span></div>
+        <div class="term-line" style="animation-delay:120ms">
+          <div class="out"><span class="k">name:  </span><span class="v">Gabriel Ferreira de Castro</span></div>
+        </div>
+        <div class="term-line" style="animation-delay:200ms">
+          <div class="out"><span class="k">role:  </span><span class="v"><%- (sobre && sobre.cargo && sobre.empresa) ? sobre.cargo + ' @ ' + sobre.empresa : 'Software Engineer' %></span></div>
+        </div>
+        <div class="term-line" style="animation-delay:280ms">
+          <div class="out"><span class="k">edu:   </span><span class="v"><%- (sobre && sobre.formacao) ? sobre.formacao : 'Ciência da Computação' %></span><% if (sobre && sobre.previsaoFormatura) { %> <span class="muted">(fim: <%=sobre.previsaoFormatura%>)</span><% } %></div>
+        </div>
+        <div class="term-line" style="animation-delay:360ms">
+          <div class="out"><span class="k">loc:   </span><span class="v">Lavras, MG · BR</span></div>
+        </div>
+        <div class="term-line" style="animation-delay:440ms">
+          <div class="out"><span class="k">links: </span><span class="v">github.com/gabrelCastro</span> <span class="muted">·</span> <span class="v">linkedin.com/in/gabriel-ferreira</span></div>
+        </div>
+        <div class="term-line" style="animation-delay:560ms">
+          <div class="prompt"><span class="user">gabrel</span><span class="arrow">~</span><span style="color:var(--accent)">$</span> <span class="cmd">ls --help</span><span class="caret" aria-hidden="true"></span></div>
+        </div>
       </div>
       <div class="term-hint" role="toolbar" aria-label="comandos">
         <button class="chip" data-goto="about"><span class="k">01</span>./sobre</button>

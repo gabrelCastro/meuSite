@@ -350,37 +350,6 @@ document.documentElement.classList.add('js-on');
     a.href = URL.createObjectURL(blob); a.download = 'gabriel-cv.txt'; a.click();
   });
 
-  // ---------- Char reveal on visible ----------
-  function revealEl(el) {
-    if (el.dataset.revealed) return;
-    el.dataset.revealed = '1';
-    const wait = parseInt(el.dataset.wait || 0);
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    const nodes = [];
-    let n;
-    while ((n = walker.nextNode())) nodes.push(n);
-    let k = 0, idx = 0;
-    function next() {
-      if (idx >= nodes.length) return;
-      const textNode = nodes[idx++];
-      const frag = document.createDocumentFragment();
-      const text = textNode.nodeValue;
-      for (let i = 0; i < text.length; i++) {
-        const s = document.createElement('span');
-        s.className = 'ch';
-        s.textContent = text[i];
-        s.style.animationDelay = (k++ * 6 + wait) + 'ms';
-        frag.appendChild(s);
-      }
-      textNode.parentNode.replaceChild(frag, textNode);
-      if (idx < nodes.length) requestAnimationFrame(next);
-    }
-    requestAnimationFrame(next);
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) revealEl(e.target); });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // ---------- Apply initial ----------
   apply();
