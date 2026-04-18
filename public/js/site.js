@@ -37,6 +37,7 @@ document.documentElement.classList.add('js-on');
     let W=0, H=0, dpr = Math.min(window.devicePixelRatio || 1, 2);
     let mode = 'grid';
     let raf = 0;
+    let cachedBg = null;
     let t0 = performance.now();
     let mouse = { x: 0.5, y: 0.3, tx: 0.5, ty: 0.3 };
     let st = null;
@@ -109,7 +110,7 @@ document.documentElement.classList.add('js-on');
     function drawMatrix(dt) {
       const [ar,ag,ab] = accentRGB();
       const [fr,fg,fb] = fgRGB();
-      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#000';
+      ctx.fillStyle = cachedBg || (cachedBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#000');
       ctx.globalAlpha = 0.12;
       ctx.fillRect(0,0,W,H);
       ctx.globalAlpha = 1;
@@ -233,6 +234,7 @@ document.documentElement.classList.add('js-on');
   })();
 
   function apply() {
+    cachedBg = null;
     const root = document.documentElement;
     root.setAttribute('data-theme', state.theme);
     const pal = state.theme === 'light' ? ACCENTS_LIGHT[state.accent] : ACCENTS[state.accent];
@@ -352,22 +354,28 @@ document.documentElement.classList.add('js-on');
   function revealEl(el) {
     if (el.dataset.revealed) return;
     el.dataset.revealed = '1';
+    const wait = parseInt(el.dataset.wait || 0);
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    let n, nodes = [];
+    const nodes = [];
+    let n;
     while ((n = walker.nextNode())) nodes.push(n);
-    let k = 0;
-    nodes.forEach(textNode => {
+    let k = 0, idx = 0;
+    function next() {
+      if (idx >= nodes.length) return;
+      const textNode = nodes[idx++];
       const frag = document.createDocumentFragment();
       const text = textNode.nodeValue;
       for (let i = 0; i < text.length; i++) {
         const s = document.createElement('span');
         s.className = 'ch';
         s.textContent = text[i];
-        s.style.animationDelay = (k++ * 6 + (parseInt(el.dataset.wait||0))) + 'ms';
+        s.style.animationDelay = (k++ * 6 + wait) + 'ms';
         frag.appendChild(s);
       }
       textNode.parentNode.replaceChild(frag, textNode);
-    });
+      if (idx < nodes.length) requestAnimationFrame(next);
+    }
+    requestAnimationFrame(next);
   }
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) revealEl(e.target); });
