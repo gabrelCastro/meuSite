@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><%= post.titulo %> — gabrel.tech</title>
 <meta name="description" content="<%= post.descricao || post.titulo %>" />
-<link rel="canonical" href="https://gabrel.tech/post/<%= post.id %>" />
+<link rel="canonical" href="https://gabrel.tech/post/<%= post.slug || post.id %>" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="gabrel.tech" />
 <meta property="og:title" content="<%= post.titulo %>" />
 <meta property="og:description" content="<%= post.descricao || post.titulo %>" />
-<meta property="og:url" content="https://gabrel.tech/post/<%= post.id %>" />
+<meta property="og:url" content="https://gabrel.tech/post/<%= post.slug || post.id %>" />
 <% if (post.img) { %><meta property="og:image" content="<%= post.img %>" /><% } %>
 <% if (post.createdAt) { %><meta property="article:published_time" content="<%= new Date(post.createdAt).toISOString() %>" /><% } %>
 <meta name="twitter:card" content="<%= post.img ? 'summary_large_image' : 'summary' %>" />

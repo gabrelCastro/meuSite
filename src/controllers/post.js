@@ -36,7 +36,16 @@ class PostController {
 
     static async getPostPerID(req, res) {
         try {
-            const post = await PostService.getById(Number(req.params.id));
+            const param = req.params.slug;
+
+            if (/^\d+$/.test(param)) {
+                const post = await PostService.getById(Number(param));
+                if (!post) return res.status(404).send('Post não encontrado');
+                if (post.slug) return res.redirect(301, '/post/' + post.slug);
+                return res.render('post', { post, currentPage: 'blog' });
+            }
+
+            const post = await PostService.getBySlug(param);
             if (!post) return res.status(404).send('Post não encontrado');
             res.render('post', { post, currentPage: 'blog' });
         } catch (err) {

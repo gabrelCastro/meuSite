@@ -9,7 +9,7 @@ const { validatePostCreate, validatePostUpdate, validateId } = require(path.reso
 
 routes.post("/post", auth, upload.single('imagem'), processImage, validatePostCreate, postController.postStore);
 routes.get("/blog", postController.getPost);
-routes.get("/post/:id", validateId, postController.getPostPerID);
+routes.get("/post/:slug", postController.getPostPerID);
 routes.delete("/post/:id", auth, validateId, postController.deletePost);
 routes.get("/postAdmin", auth, postController.getAdmin);
 routes.get("/postEditar/:id", auth, validateId, postController.getPostPerIDadmin);

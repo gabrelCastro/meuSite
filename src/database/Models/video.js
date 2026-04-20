@@ -30,6 +30,11 @@ const Video = database.define('video', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    slug: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
+    },
     corpo: {
         type: Sequelize.TEXT,
         allowNull: true

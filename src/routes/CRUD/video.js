@@ -9,7 +9,7 @@ const { validateVideoCreate, validateVideoUpdate, validateId } = require(path.re
 
 routes.post("/video", auth, upload.single('imagem'), processImage, validateVideoCreate, videoController.videoStore);
 routes.get("/videos", videoController.getVideo);
-routes.get("/video/:id", validateId, videoController.getVideoPerID);
+routes.get("/video/:slug", videoController.getVideoPerID);
 routes.delete("/video/:id", auth, validateId, videoController.deleteVideo);
 routes.get("/videoAdmin", auth, videoController.getAdmin);
 routes.get("/videoEditar/:id", auth, validateId, videoController.getVideoPerIDadmin);

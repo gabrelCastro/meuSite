@@ -10,6 +10,10 @@ class PostRepository {
         return Post.findByPk(id);
     }
 
+    static findBySlug(slug) {
+        return Post.findOne({ where: { slug } });
+    }
+
     static create(data) {
         return Post.create(data);
     }

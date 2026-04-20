@@ -18,6 +18,30 @@ function urlToEmbed(raw) {
     return null;
 }
 
+function generateSlug(titulo) {
+    return titulo
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
+async function generateUniqueSlug(titulo, excludeId = null) {
+    const base = generateSlug(titulo);
+    let slug = base;
+    let counter = 2;
+    while (true) {
+        const existing = await VideoRepository.findBySlug(slug);
+        if (!existing || (excludeId && existing.id === excludeId)) break;
+        slug = `${base}-${counter++}`;
+    }
+    return slug;
+}
+
 function parseTags(raw) {
     if (!raw) return [];
     if (Array.isArray(raw)) return raw;
@@ -28,6 +52,7 @@ function toPlainObject(video) {
     const img = typeof video.img === 'string' ? video.img : (video.img && video.img.url) || '';
     return {
         id: video.id,
+        slug: video.slug || null,
         titulo: video.titulo,
         descricao: video.descricao || null,
         tags: video.tags || [],
@@ -58,12 +83,21 @@ class VideoService {
         return video ? toPlainObject(video) : null;
     }
 
+    static async getBySlug(slug) {
+        const video = await VideoRepository.findBySlug(slug);
+        return video ? toPlainObject(video) : null;
+    }
+
     static async create({ titulo, descricao, tags, serie, url, corpo, filename }) {
         const embed = urlToEmbed(url);
         if (!embed) throw new Error('URL inválida. Use um link do YouTube ou Vimeo.');
 
+        const tituloTrimmed = titulo.trim();
+        const slug = await generateUniqueSlug(tituloTrimmed);
+
         const video = await VideoRepository.create({
-            titulo: titulo.trim(),
+            titulo: tituloTrimmed,
+            slug,
             descricao: descricao ? descricao.trim() : null,
             tags: parseTags(tags),
             serie: serie ? serie.trim() : null,
@@ -91,8 +125,14 @@ class VideoService {
             conteudo = embed;
         }
 
+        const novoTitulo = titulo ? titulo.trim() : video.titulo;
+        const slug = novoTitulo !== video.titulo
+            ? await generateUniqueSlug(novoTitulo, video.id)
+            : video.slug;
+
         const updated = await VideoRepository.update(video, {
-            titulo: titulo ? titulo.trim() : video.titulo,
+            titulo: novoTitulo,
+            slug,
             descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : video.descricao,
             tags: tags !== undefined ? parseTags(tags) : video.tags,
             serie: serie !== undefined ? (serie ? serie.trim() : null) : video.serie,

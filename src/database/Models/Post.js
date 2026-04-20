@@ -22,6 +22,11 @@ const Post = database.define('post', {
         allowNull: true,
         defaultValue: []
     },
+    slug: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
+    },
     pinned: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

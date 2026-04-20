@@ -22,6 +22,30 @@ const sanitizeOpts = {
     },
 };
 
+function generateSlug(titulo) {
+    return titulo
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
+async function generateUniqueSlug(titulo, excludeId = null) {
+    const base = generateSlug(titulo);
+    let slug = base;
+    let counter = 2;
+    while (true) {
+        const existing = await PostRepository.findBySlug(slug);
+        if (!existing || (excludeId && existing.id === excludeId)) break;
+        slug = `${base}-${counter++}`;
+    }
+    return slug;
+}
+
 function parseTags(raw) {
     if (!raw) return [];
     if (Array.isArray(raw)) return raw;
@@ -32,6 +56,7 @@ function toPlainObject(post) {
     const img = typeof post.img === 'string' ? post.img : (post.img && post.img.url) || '';
     return {
         id: post.id,
+        slug: post.slug || null,
         titulo: post.titulo,
         descricao: post.descricao || null,
         tags: post.tags || [],
@@ -61,9 +86,18 @@ class PostService {
         return post ? toPlainObject(post) : null;
     }
 
+    static async getBySlug(slug) {
+        const post = await PostRepository.findBySlug(slug);
+        return post ? toPlainObject(post) : null;
+    }
+
     static async create({ titulo, descricao, tags, pinned, conteudo, filename }) {
+        const tituloTrimmed = titulo.trim();
+        const slug = await generateUniqueSlug(tituloTrimmed);
+
         const post = await PostRepository.create({
-            titulo: titulo.trim(),
+            titulo: tituloTrimmed,
+            slug,
             descricao: descricao ? descricao.trim() : null,
             tags: parseTags(tags),
             pinned: pinned === true || pinned === 'on' || pinned === '1',
@@ -83,8 +117,14 @@ class PostService {
             img = { url: '/uploads/' + filename };
         }
 
+        const novoTitulo = titulo ? titulo.trim() : post.titulo;
+        const slug = novoTitulo !== post.titulo
+            ? await generateUniqueSlug(novoTitulo, post.id)
+            : post.slug;
+
         const updated = await PostRepository.update(post, {
-            titulo: titulo ? titulo.trim() : post.titulo,
+            titulo: novoTitulo,
+            slug,
             descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : post.descricao,
             tags: tags !== undefined ? parseTags(tags) : post.tags,
             pinned: pinned !== undefined ? (pinned === true || pinned === 'on' || pinned === '1') : post.pinned,

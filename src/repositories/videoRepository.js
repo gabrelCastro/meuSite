@@ -10,6 +10,10 @@ class VideoRepository {
         return Video.findByPk(id);
     }
 
+    static findBySlug(slug) {
+        return Video.findOne({ where: { slug } });
+    }
+
     static create(data) {
         return Video.create(data);
     }

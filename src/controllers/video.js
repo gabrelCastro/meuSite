@@ -37,7 +37,16 @@ class VideoController {
 
     static async getVideoPerID(req, res) {
         try {
-            const video = await VideoService.getById(Number(req.params.id));
+            const param = req.params.slug;
+
+            if (/^\d+$/.test(param)) {
+                const video = await VideoService.getById(Number(param));
+                if (!video) return res.status(404).send('Vídeo não encontrado');
+                if (video.slug) return res.redirect(301, '/video/' + video.slug);
+                return res.render('video', { video, currentPage: 'videos' });
+            }
+
+            const video = await VideoService.getBySlug(param);
             if (!video) return res.status(404).send('Vídeo não encontrado');
             res.render('video', { video, currentPage: 'videos' });
         } catch (err) {

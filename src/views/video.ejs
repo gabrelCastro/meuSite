@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><%= video.titulo %> — gabrel.tech</title>
 <meta name="description" content="<%= video.descricao || video.titulo %>" />
-<link rel="canonical" href="https://gabrel.tech/video/<%= video.id %>" />
+<link rel="canonical" href="https://gabrel.tech/video/<%= video.slug || video.id %>" />
 <meta property="og:type" content="video.other" />
 <meta property="og:site_name" content="gabrel.tech" />
 <meta property="og:title" content="<%= video.titulo %>" />
 <meta property="og:description" content="<%= video.descricao || video.titulo %>" />
-<meta property="og:url" content="https://gabrel.tech/video/<%= video.id %>" />
+<meta property="og:url" content="https://gabrel.tech/video/<%= video.slug || video.id %>" />
 <% if (video.img) { %><meta property="og:image" content="<%= video.img %>" /><% } %>
 <% if (video.createdAt) { %><meta property="article:published_time" content="<%= new Date(video.createdAt).toISOString() %>" /><% } %>
 <meta name="twitter:card" content="<%= video.img ? 'summary_large_image' : 'summary' %>" />
