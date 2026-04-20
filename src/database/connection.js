@@ -1,4 +1,5 @@
 const path = require("path");
+const backfillSlugs = require(path.resolve("src", "database", "backfill"));
 
 async function connection() {
 
@@ -9,8 +10,9 @@ async function connection() {
     })
     .catch((e)=>{
         console.log(e);
-    }
-    )
+    });
+
+    await backfillSlugs().catch((e) => console.log("Backfill error:", e));
 }
 
 module.exports = connection;
