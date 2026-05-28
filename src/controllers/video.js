@@ -1,6 +1,7 @@
 const path = require('path');
 const VideoService = require(path.resolve('src', 'services', 'videoService'));
 const { wantsJson } = require(path.resolve('src', 'utils', 'request'));
+const { renderMarkdown } = require(path.resolve('src', 'utils', 'markdown'));
 
 class VideoController {
     static async videoStore(req, res) {
@@ -43,12 +44,12 @@ class VideoController {
                 const video = await VideoService.getById(Number(param));
                 if (!video) return res.status(404).send('Vídeo não encontrado');
                 if (video.slug) return res.redirect(301, '/video/' + video.slug);
-                return res.render('video', { video, currentPage: 'videos' });
+                return res.render('video', { video, corpoHtml: renderMarkdown(video.corpo), currentPage: 'videos' });
             }
 
             const video = await VideoService.getBySlug(param);
             if (!video) return res.status(404).send('Vídeo não encontrado');
-            res.render('video', { video, currentPage: 'videos' });
+            res.render('video', { video, corpoHtml: renderMarkdown(video.corpo), currentPage: 'videos' });
         } catch (err) {
             res.status(500).send('Erro ao carregar vídeo');
         }

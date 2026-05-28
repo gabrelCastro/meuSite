@@ -19,6 +19,7 @@
 <% if (video.img) { %><meta name="twitter:image" content="<%= video.img %>" /><% } %>
 <%- include('partials/head-common') %>
 <link rel="stylesheet" href="/css/post-content.css" />
+<link rel="stylesheet" href="/css/hljs-theme.css" />
 </head>
 <body>
 
@@ -44,9 +45,9 @@
     <%- video.conteudo %>
   </div>
 
-  <% if (video.corpo) { %>
+  <% if (corpoHtml) { %>
   <article class="post-body prose">
-    <%- video.corpo %>
+    <%- corpoHtml %>
   </article>
   <% } %>
 

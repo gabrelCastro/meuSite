@@ -1,14 +1,11 @@
 const path = require('path');
 const PostService = require(path.resolve('src', 'services', 'postService'));
 const { wantsJson } = require(path.resolve('src', 'utils', 'request'));
+const { renderMarkdown } = require(path.resolve('src', 'utils', 'markdown'));
 
 class PostController {
     static async postStore(req, res) {
         try {
-            if (!req.file) {
-                if (wantsJson(req)) return res.status(400).json({ message: 'Imagem é obrigatória' });
-                return res.redirect('/criarPost?error=Imagem+é+obrigatória');
-            }
             const post = await PostService.create({
                 titulo: req.body.titulo,
                 descricao: req.body.descricao,
@@ -42,12 +39,12 @@ class PostController {
                 const post = await PostService.getById(Number(param));
                 if (!post) return res.status(404).send('Post não encontrado');
                 if (post.slug) return res.redirect(301, '/post/' + post.slug);
-                return res.render('post', { post, currentPage: 'blog' });
+                return res.render('post', { post, conteudoHtml: renderMarkdown(post.conteudo), currentPage: 'blog' });
             }
 
             const post = await PostService.getBySlug(param);
             if (!post) return res.status(404).send('Post não encontrado');
-            res.render('post', { post, currentPage: 'blog' });
+            res.render('post', { post, conteudoHtml: renderMarkdown(post.conteudo), currentPage: 'blog' });
         } catch (err) {
             res.status(500).send('Erro ao carregar post');
         }
@@ -97,6 +94,19 @@ class PostController {
             if (wantsJson(req)) return res.status(500).json({ message: err.message });
             return res.redirect('/postEditar/' + req.params.id + '?error=Erro+ao+salvar+post');
         }
+    }
+
+    static previewPost(req, res) {
+        try {
+            res.json({ html: renderMarkdown(req.body.conteudo || '') });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    static uploadInline(req, res) {
+        if (!req.file) return res.status(400).json({ message: 'Nenhum arquivo enviado' });
+        res.json({ url: '/uploads/' + req.file.filename });
     }
 }
 

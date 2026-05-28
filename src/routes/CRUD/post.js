@@ -8,6 +8,8 @@ const auth = require(path.resolve("src","middlewares","auth"));
 const { validatePostCreate, validatePostUpdate, validateId } = require(path.resolve("src","middlewares","validators"));
 
 routes.post("/post", auth, upload.single('imagem'), processImage, validatePostCreate, postController.postStore);
+routes.post("/post/preview", auth, postController.previewPost);
+routes.post("/admin/upload", auth, upload.single('imagem'), processImage, postController.uploadInline);
 routes.get("/blog", postController.getPost);
 routes.get("/post/:slug", postController.getPostPerID);
 routes.delete("/post/:id", auth, validateId, postController.deletePost);

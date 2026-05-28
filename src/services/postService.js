@@ -1,26 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const sanitizeHtml = require('sanitize-html');
 const PostRepository = require(path.resolve('src', 'repositories', 'postRepository'));
-
-const sanitizeOpts = {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-        'img', 'h1', 'h2', 'span', 'figure', 'figcaption',
-    ]),
-    allowedAttributes: {
-        '*': ['class'],
-        a: ['href', 'target', 'rel', 'title'],
-        img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
-        code: ['class'],
-        pre: ['class'],
-        span: ['class'],
-    },
-    allowedSchemes: ['http', 'https', 'mailto'],
-    allowedSchemesByTag: { img: ['http', 'https', 'data'] },
-    transformTags: {
-        a: sanitizeHtml.simpleTransform('a', { rel: 'noopener noreferrer', target: '_blank' }, true),
-    },
-};
 
 function generateSlug(titulo) {
     return titulo
@@ -101,7 +81,7 @@ class PostService {
             descricao: descricao ? descricao.trim() : null,
             tags: parseTags(tags),
             pinned: pinned === true || pinned === 'on' || pinned === '1',
-            conteudo: sanitizeHtml(conteudo, sanitizeOpts),
+            conteudo: conteudo ? conteudo.trim() : '',
             img: filename ? { url: '/uploads/' + filename } : null,
         });
         return toPlainObject(post);
@@ -128,7 +108,7 @@ class PostService {
             descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : post.descricao,
             tags: tags !== undefined ? parseTags(tags) : post.tags,
             pinned: pinned !== undefined ? (pinned === true || pinned === 'on' || pinned === '1') : post.pinned,
-            conteudo: conteudo ? sanitizeHtml(conteudo, sanitizeOpts) : post.conteudo,
+            conteudo: conteudo ? conteudo.trim() : post.conteudo,
             img,
         });
         return toPlainObject(updated);

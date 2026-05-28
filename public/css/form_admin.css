@@ -191,12 +191,6 @@ body::after {
     font-size: 0.82rem;
 }
 
-/* ── TinyMCE container ──────────────────────────── */
-.tox-tinymce {
-    border: 1px solid var(--line) !important;
-    border-radius: 6px !important;
-}
-
 /* ── Botão submit ───────────────────────────────── */
 .btn-submit {
     align-self: flex-start;

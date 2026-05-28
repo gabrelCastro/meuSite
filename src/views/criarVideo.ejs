@@ -6,6 +6,9 @@
     <title>Novo Vídeo — Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/form_admin.css">
+    <link rel="stylesheet" href="/css/post-content.css">
+    <link rel="stylesheet" href="/css/hljs-theme.css">
+    <link rel="stylesheet" href="/css/markdown-editor.css">
     <link rel="stylesheet" href="/css/tweaks-panel.css">
 </head>
 <body>
@@ -18,8 +21,8 @@
     </header>
 
     <div class="form-container">
-        <% if (error) { %><div class="form-error"><%= error %></div><% } %>
-        <form method="post" action="/video" class="formulario" enctype="multipart/form-data">
+        <div class="form-error" id="formError" <% if (!error) { %>hidden<% } %>><%= error || '' %></div>
+        <form id="postForm" data-method="POST" method="post" action="/video" class="formulario" enctype="multipart/form-data">
             <div class="campo">
                 <label for="titulo">Título</label>
                 <input type="text" id="titulo" name="titulo" class="input" required placeholder="Título do vídeo">
@@ -56,17 +59,39 @@
                 <span class="hint">Separe com vírgula</span>
             </div>
 
-            <div class="campo">
-                <label for="corpo">Conteúdo adicional <span class="hint">(opcional)</span></label>
-                <textarea name="corpo" id="corpo"></textarea>
+            <div class="campo md-field">
+                <label for="corpo">Conteúdo adicional <span class="hint">(Markdown, opcional)</span></label>
+                <div class="md-toolbar">
+                    <button type="button" data-md="bold" title="Negrito (Ctrl+B)"><strong>B</strong></button>
+                    <button type="button" data-md="italic" title="Itálico (Ctrl+I)"><em>I</em></button>
+                    <button type="button" data-md="h2" title="Título">H2</button>
+                    <span class="md-sep"></span>
+                    <button type="button" data-md="link" title="Link (Ctrl+K)">↗</button>
+                    <button type="button" data-md="image" title="Imagem">⬚</button>
+                    <button type="button" data-md="code" title="Código inline">&lt;/&gt;</button>
+                    <button type="button" data-md="codeblock" title="Bloco de código">{ }</button>
+                    <span class="md-sep"></span>
+                    <button type="button" data-md="ul" title="Lista">•</button>
+                    <button type="button" data-md="ol" title="Lista numerada">1.</button>
+                    <button type="button" data-md="quote" title="Citação">❝</button>
+                    <span class="md-toolbar-spacer"></span>
+                    <div class="md-view-toggle">
+                        <button type="button" data-view="write">Escrever</button>
+                        <button type="button" data-view="split" class="active">Split</button>
+                        <button type="button" data-view="preview">Preview</button>
+                    </div>
+                </div>
+                <div class="md-editor" data-view="split">
+                    <textarea name="corpo" id="corpo" class="md-source" placeholder="Escreva em Markdown… arraste ou cole imagens direto aqui."></textarea>
+                    <div class="md-preview"><article class="post-body prose"></article></div>
+                </div>
             </div>
 
             <button type="submit" class="btn-submit">Publicar Vídeo</button>
         </form>
     </div>
 
-    <script src="/tinymce/tinymce.min.js"></script>
-    <script src="/js/videoForm.js"></script>
+    <script src="/js/markdownEditor.js"></script>
 </body>
 
 <%- include('partials/tweaks-panel') %>
