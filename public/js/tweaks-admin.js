@@ -1,5 +1,4 @@
 (function () {
-  var LS_KEY = 'gabrel_site_state_v1';
   var DEFAULTS = { theme: 'dark', accent: 'lime', density: 'airy', heroMode: 'terminal', bg: 'grid' };
   var ACCENTS = {
     lime:    { a: 'oklch(0.82 0.18 130)', ink: 'oklch(0.22 0.06 130)' },
@@ -17,11 +16,23 @@
   };
 
   function load() {
-    try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(LS_KEY) || '{}')); }
-    catch (e) { return Object.assign({}, DEFAULTS); }
+    // A config é global e vem do servidor (window.__TWEAKS__, servido por /js/site-tweaks.js).
+    return Object.assign({}, DEFAULTS, window.__TWEAKS__ || {});
   }
 
-  function save(t) { localStorage.setItem(LS_KEY, JSON.stringify(t)); }
+  // Persiste a config no servidor para valer em todos os dispositivos/visitantes.
+  function save(t) {
+    return fetch('/admin/tweaks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(t),
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Falha ao salvar (' + res.status + ')');
+    }).catch(function (err) {
+      console.error('Não foi possível salvar a aparência do site:', err);
+      alert('Não foi possível salvar a aparência do site. Verifique se você está logado.');
+    });
+  }
 
   function apply(t) {
     var root = document.documentElement;

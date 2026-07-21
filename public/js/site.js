@@ -2,13 +2,11 @@ document.documentElement.classList.add('js-on');
 
 (function(){
   // ---------- State ----------
-  const LS = 'gabrel_site_state_v1';
+  // Config global do site, definida pelo admin e servida por /js/site-tweaks.js.
   const defaults = Object.assign({
     theme: 'dark', accent: 'lime', density: 'cozy', heroMode: 'terminal', bg: 'grid'
   }, window.__TWEAKS__ || {});
-  let state;
-  try { state = Object.assign({}, defaults, JSON.parse(localStorage.getItem(LS) || '{}')); }
-  catch { state = Object.assign({}, defaults); }
+  let state = Object.assign({}, defaults);
 
   const ACCENTS = {
     lime:    { a: 'oklch(0.82 0.18 130)', ink: 'oklch(0.22 0.06 130)' },
@@ -274,7 +272,7 @@ document.documentElement.classList.add('js-on');
   }
 
   function persist() {
-    try { localStorage.setItem(LS, JSON.stringify(state)); } catch {}
+    // A config é global (servidor); alterações locais do visitante são só da sessão atual.
     // Notify host (edit mode)
     try { window.parent && window.parent.postMessage({ type: '__edit_mode_set_keys', edits: state }, '*'); } catch {}
   }
