@@ -861,6 +861,7 @@
   border-bottom: 1px solid var(--line);
   align-items: baseline;
   transition: background .15s, padding .15s;
+  cursor: pointer;
 }
 .post:hover { background: var(--bg-1); padding-left: 10px; padding-right: 10px; }
 @media (max-width: 680px) {
@@ -915,6 +916,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 .pinned::before {
   content: "";

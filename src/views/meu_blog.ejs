@@ -51,7 +51,7 @@
   </div>
 
   <% if (pinnedPost) { %>
-  <article class="pinned">
+  <article class="pinned" data-href="/post/<%= pinnedPost.slug || pinnedPost.id %>">
     <span class="k">// pinned</span>
     <div>
       <h3><a href="/post/<%= pinnedPost.slug || pinnedPost.id %>"><%= pinnedPost.titulo %></a></h3>
@@ -66,7 +66,7 @@
       <p style="color:var(--fg-3);padding:48px 0;text-align:center">Nenhum post publicado ainda.</p>
     <% } else { %>
       <% regularPosts.forEach(function(p) { %>
-      <article class="post" data-tags="<%= (p.tags || []).join(' ') %>">
+      <article class="post" data-tags="<%= (p.tags || []).join(' ') %>" data-href="/post/<%= p.slug || p.id %>">
         <div class="date"><%= new Date(p.createdAt).toISOString().slice(0,10) %></div>
         <div class="body">
           <h3><a href="/post/<%= p.slug || p.id %>"><%= p.titulo %></a></h3>
@@ -90,6 +90,7 @@
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <script src="/js/site.js"></script>
 <script src="/js/blog-filter.js"></script>
+<script src="/js/blog.js"></script>
 <script src="/js/nav-mobile.js"></script>
 </body>
 </html>
